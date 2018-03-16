@@ -9,7 +9,7 @@ public class DemoExecutorImpl extends AbstractExecutor {
 	protected ExecuteResult run(String trackingId) {
 		System.out.println("run test case with trackingId:" + trackingId);
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
