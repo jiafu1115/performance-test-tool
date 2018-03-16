@@ -4,6 +4,10 @@ import com.test.performance.testcase.AbstractTestCaseExecutor;
 import com.test.performance.testcase.TestCaseResult;
 
 public class DemoTestCaseImpl extends AbstractTestCaseExecutor {
+	
+	public DemoTestCaseImpl(){
+		System.out.println(System.getProperties());
+	}
 
 	@Override
 	protected TestCaseResult run(String trackingId) {

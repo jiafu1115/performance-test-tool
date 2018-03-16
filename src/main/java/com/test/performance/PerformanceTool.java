@@ -3,7 +3,6 @@ package com.test.performance;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import com.beust.jcommander.DynamicParameter;
 import com.beust.jcommander.JCommander;
@@ -42,12 +41,7 @@ public class PerformanceTool {
 	}
 
 	public void run() {
-		System.out.println("####performance tool data####");
-		System.out.println(this);
- 
-		for (Entry<String, String> entry : this.params.entrySet()) {
-			System.setProperty(entry.getKey(), entry.getValue());
-		}
+		printInfoAndPrepare();
   		
 		AbstractTestCaseExecutor abstractExecutor = PerformanceUtil.getClassInstace(testCaseClass);
 		CollectMethod classInstace = PerformanceUtil.getClassInstace(collectResultClass);
@@ -61,6 +55,15 @@ public class PerformanceTool {
 		}
 
 		doStress(abstractExecutor, resultCollector);
+	}
+
+	private void printInfoAndPrepare() {
+		System.out.println("####performance tool data####");
+		System.out.println(this);
+ 
+		for (Entry<String, String> entry : this.params.entrySet()) {
+			System.setProperty(entry.getKey(), entry.getValue());
+		}
 	}
 
 	private boolean prepareCondition(AbstractTestCaseExecutor abstractExecutor) {
