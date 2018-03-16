@@ -7,7 +7,7 @@ public class DemoCollectMethodImpl implements CollectMethod {
 
 	@Override
 	public void collect(PerformanceResult result) {
-		System.out.println("send to report system: " + result);
+		System.out.println("        send to report system: " + result);
 	}
 
 }
