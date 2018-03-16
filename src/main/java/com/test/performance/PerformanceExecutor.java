@@ -1,6 +1,7 @@
 package com.test.performance;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.beust.jcommander.JCommander;
@@ -29,12 +30,14 @@ public class PerformanceExecutor {
 		final Object implementInstance = implementClazz.newInstance();
 		final Method stressMethod = implementClazz.getMethod("execute", String.class);
 
-		final long endTimeInMillis = System.currentTimeMillis() + durationInSeconds * 1000;
+		long startTime = System.currentTimeMillis();
+		final long endTimeInMillis = startTime + durationInSeconds * 1000;
 		
 		AtomicLong totalRequests = new AtomicLong();
 
+		ArrayList<Thread> threads = new ArrayList<Thread>();
 		for (int i = 0; i < threadNumber; i++) {
-			new Thread(new Runnable() {
+			Thread thread = new Thread(new Runnable() {
 
 				@Override
 				public void run() {
@@ -52,8 +55,18 @@ public class PerformanceExecutor {
 					}
 
 				}
-			}).start();
+			});
+			
+			threads.add(thread);
+			thread.start();
 		}
+		
+		for (Thread thread : threads) {
+			thread.join();
+		}
+		
+		long actualDurationInSeconds = (System.currentTimeMillis()- startTime)/1000;
+		System.out.println(String.format("send [%d] requests in [%d], average tps is [%d]", totalRequests.get(), actualDurationInSeconds, totalRequests.get()/actualDurationInSeconds));
 
 	}
  
