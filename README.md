@@ -1,7 +1,8 @@
 # performance-test-tool
 common performance test tool
 
-Usage: performance test tool [options]
+```
+  Usage: performance test tool [options]
   Options:
     --help
 
@@ -23,4 +24,5 @@ Usage: performance test tool [options]
     -tps
       if tps is set, thread number setting is ignored
       Default: -1
+```
 
