@@ -2,6 +2,8 @@ package com.test.performance;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.beust.jcommander.DynamicParameter;
 import com.beust.jcommander.JCommander;
@@ -42,7 +44,11 @@ public class PerformanceTool {
 	public void run() {
 		System.out.println("####performance tool data####");
 		System.out.println(this);
-		
+ 
+		for (Entry<String, String> entry : this.params.entrySet()) {
+			System.setProperty(entry.getKey(), entry.getValue());
+		}
+  		
 		AbstractTestCaseExecutor abstractExecutor = PerformanceUtil.getClassInstace(testCaseClass);
 		CollectMethod classInstace = PerformanceUtil.getClassInstace(collectResultClass);
 		PerformanceResultCollector resultCollector = new PerformanceResultCollector(classInstace);
