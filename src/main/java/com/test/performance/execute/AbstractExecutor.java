@@ -21,6 +21,6 @@ public abstract class AbstractExecutor implements Executor{
  		return new Result(startTime, trackingId, result, comsumeTime);
   	}
 	
-	abstract boolean run(String trackingId);
+	protected abstract boolean run(String trackingId);
 
 }
