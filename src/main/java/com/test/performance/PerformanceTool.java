@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.test.performance.execute.AbstractExecutor;
 import com.test.performance.result.CollectMethod;
 import com.test.performance.result.Result;
 import com.test.performance.result.ResultCollector;
@@ -22,6 +23,10 @@ public class PerformanceTool {
 
 	@Parameter(names = { "--duration", "-d" })
 	private int durationInSeconds = 10;
+	
+	@Parameter(names = { "--tps", "-r" })
+	private int tps;
+	
   
 	public static void main(String... argv) throws Exception {
 		PerformanceTool performancePool = new PerformanceTool();

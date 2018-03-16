@@ -1,4 +1,4 @@
-package com.test.performance;
+package com.test.performance.execute;
 
 import com.test.performance.result.Result;
 
@@ -18,10 +18,8 @@ public abstract class AbstractExecutor implements Executor{
 		
 		long endTime = System.currentTimeMillis();
  		long comsumeTime = endTime - startTime;
- 		Result resultRecord = new Result(startTime, trackingId, result, comsumeTime);
- 		
- 		return resultRecord;
- 	}
+ 		return new Result(startTime, trackingId, result, comsumeTime);
+  	}
 	
 	abstract boolean run(String trackingId);
 
