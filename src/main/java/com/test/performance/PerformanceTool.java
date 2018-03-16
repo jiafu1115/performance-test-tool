@@ -10,19 +10,19 @@ import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public class PerformanceTool {
 
-	@Parameter(required = true, names = { "--implement", "-i" },  description = "com.test.performance.demo.DemoTestCaseImpl")
-	private String implementClass;
+	@Parameter(required = true, names = { "--test", "-t" },  description = "com.test.performance.demo.DemoTestCaseImpl")
+	private String testCaseClass;
 
-	@Parameter(required = true, names = { "--collect", "-c" },  description = "com.test.performance.demo.DemoCollectMethodImpl")
-	private String collectClass;
+	@Parameter(required = true, names = { "--record", "-r" },  description = "com.test.performance.demo.DemoCollectMethodImpl")
+	private String collectResultClass;
 
-	@Parameter(names = { "--threadNumber", "-t" })
+	@Parameter(names = { "-thread" })
 	private int threadNumber = 1;
 
-	@Parameter(names = { "--duration", "-d" })
+	@Parameter(names = { "-duration"})
 	private int durationInSeconds = 10;
 
-	@Parameter(names = { "--tps", "-r" })
+	@Parameter(names = { "-tps"})
 	private int tps = -1;
 
 	public static void main(String... argv) throws Exception {
@@ -32,9 +32,12 @@ public class PerformanceTool {
 	}
 
 	public void run() {
-		AbstractTestCaseExecutor abstractExecutor = PerformanceUtil.getClassInstace(implementClass);
-		PerformanceResultCollector resultCollector = new PerformanceResultCollector(PerformanceUtil.getClassInstace(collectClass));
-
+		System.out.println("####performance tool data####");
+		System.out.println(this);
+		
+		AbstractTestCaseExecutor abstractExecutor = PerformanceUtil.getClassInstace(testCaseClass);
+		PerformanceResultCollector resultCollector = new PerformanceResultCollector(PerformanceUtil.getClassInstace(collectResultClass));
+ 
 		boolean isPrepareSuccess = prepareCondition(abstractExecutor);
 
 		if (!isPrepareSuccess) {
@@ -64,5 +67,31 @@ public class PerformanceTool {
 		return tps != -1 ? new StressWithTpsControl(abstractExecutor, resultCollector, durationInMills, tps)
 				: new StressWithThreadNumberControl(abstractExecutor, resultCollector, durationInMills, threadNumber);
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("PerformanceTool Data\n[\ntestCaseClass=");
+		builder.append(testCaseClass);
+		builder.append("\ncollectResultClass=");
+		builder.append(collectResultClass);
+		if(tps == -1){
+			builder.append("\nthreadNumber=");
+			builder.append(threadNumber);
+		}
+ 		builder.append("\ndurationInSeconds=");
+		builder.append(durationInSeconds);
+		if(tps != -1){
+			builder.append("\ntps=");
+			builder.append(tps);
+		}
+ 		builder.append("\n]");
+		return builder.toString();
+	}
+	
+	
 
 }
