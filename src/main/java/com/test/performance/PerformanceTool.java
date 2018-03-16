@@ -1,14 +1,12 @@
 package com.test.performance;
 
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.test.performance.execute.AbstractExecutor;
-import com.test.performance.result.CollectMethod;
-import com.test.performance.result.PerformanceResult;
 import com.test.performance.result.ResultCollector;
+import com.test.performance.stress.AbstractStress;
+import com.test.performance.stress.StressWithThreadNumberControl;
+import com.test.performance.stress.StressWithTpsControl;
 
 public class PerformanceTool {
 
@@ -25,7 +23,7 @@ public class PerformanceTool {
 	private int durationInSeconds = 10;
 	
 	@Parameter(names = { "--tps", "-r" })
-	private int tps;
+	private int tps = -1;
 	
   
 	public static void main(String... argv) throws Exception {
@@ -35,60 +33,22 @@ public class PerformanceTool {
 	}
 
 	public void run() throws Exception {
+ 		AbstractExecutor abstractExecutor = PerformanceUtil.getClassInstace(implementClass);
+		ResultCollector resultCollector =  PerformanceUtil.getClassInstace(collectClass);
 		
- 		AbstractExecutor abstractExecutor = getExecutor();
-		ResultCollector resultCollector = getResultCollector();
-
-		String ip = PerformanceUtil.getLocalIp();
-		long startTime = System.currentTimeMillis();
-		final long expectedEndTimeInMillis = startTime + durationInSeconds * 1000;
-		AtomicLong totalRequests = new AtomicLong();
-
-		ArrayList<Thread> threads = new ArrayList<Thread>();
-		for (int i = 0; i < threadNumber; i++) {
-			Thread thread = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					while (true) {
-						long currentTimeMillis = System.currentTimeMillis();
-						if (currentTimeMillis >= expectedEndTimeInMillis) {
-							break;
-						}
-						try {
-							String trackingID = String.format("%s_%d_%d_%d", ip, Thread.currentThread().getId(), currentTimeMillis, totalRequests.incrementAndGet());
-							PerformanceResult result = abstractExecutor.execute(trackingID);
-							resultCollector.record(result);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-
-				}
-			});
-			
-			threads.add(thread);
-			thread.start();
+		boolean isPrepareSuccess = abstractExecutor.prepare();
+		if(!isPrepareSuccess){
+			System.out.println("prepare failed");
+			return;
 		}
 		
-		for (Thread thread : threads) {
-			thread.join();
-		}
-		
-		long actualDurationInSeconds = (System.currentTimeMillis()- startTime)/1000;
-		System.out.println(String.format("send [%d] requests in [%d], average tps is [%d]", totalRequests.get(), actualDurationInSeconds, totalRequests.get()/actualDurationInSeconds));
-
+ 		AbstractStress abstractStress = getStress(abstractExecutor, resultCollector);
+		abstractStress.stressWithProgreeReport();
 	}
 
-	private AbstractExecutor getExecutor()
-			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		return (AbstractExecutor) Class.forName(implementClass).newInstance();
-	}
-
-	private ResultCollector getResultCollector()
-			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		return new ResultCollector((CollectMethod) Class.forName(collectClass).newInstance());
+	private AbstractStress getStress(AbstractExecutor abstractExecutor, ResultCollector resultCollector) {
+		return tps != -1? new StressWithTpsControl(abstractExecutor, resultCollector , durationInSeconds, tps): 
+			              new StressWithThreadNumberControl(abstractExecutor, resultCollector, durationInSeconds, threadNumber);
 	}
  
-
 }
