@@ -10,10 +10,10 @@ import com.test.performance.stress.StressWithTpsControl;
 
 public class PerformanceTool {
 
-	@Parameter(required = true, names = { "--implement", "-i" })
+	@Parameter(required = true, names = { "--implement", "-i" },  description = "com.test.performance.demo.DemoExecutorImpl")
 	private String implementClass;
 
-	@Parameter(required = true, names = { "--collect", "-c" })
+	@Parameter(required = true, names = { "--collect", "-c" },  description = "com.test.performance.demo.DemoCollectMethodImpl")
 	private String collectClass;
 
 	@Parameter(names = { "--threadNumber", "-t" })
@@ -33,7 +33,7 @@ public class PerformanceTool {
 
 	public void run() {
 		AbstractExecutor abstractExecutor = PerformanceUtil.getClassInstace(implementClass);
-		ResultCollector resultCollector = PerformanceUtil.getClassInstace(collectClass);
+		ResultCollector resultCollector = new ResultCollector(PerformanceUtil.getClassInstace(collectClass));
 
 		boolean isPrepareSuccess = prepareCondition(abstractExecutor);
 
