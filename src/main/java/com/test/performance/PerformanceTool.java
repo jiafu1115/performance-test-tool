@@ -16,10 +16,10 @@ import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public class PerformanceTool {
 
-	@Parameter(required = true, names = { "--test", "-t" },  description = "com.test.performance.demo.DemoTestCaseImpl")
+	@Parameter(required = true, names = { "--test", "-t" },  description = "test case class, such as com.test.performance.demo.DemoTestCaseImpl")
 	private String testCaseClass;
 
-	@Parameter(required = true, names = { "--record", "-r" },  description = "com.test.performance.demo.DemoCollectMethodImpl")
+	@Parameter(required = true, names = { "--record", "-r" },  description = "record test result class, such as com.test.performance.demo.DemoCollectMethodImpl")
 	private String collectResultClass;
 
 	@Parameter(names = { "-thread" })
@@ -33,10 +33,19 @@ public class PerformanceTool {
 	
 	@DynamicParameter(names = "-d", description = "dynamic parameters")
 	private Map<String, String> params = new HashMap<>();
+	
+	@Parameter(names = "--help", help = true)
+    private boolean help = false;
 
 	public static void main(String... argv) throws Exception {
 		PerformanceTool performancePool = new PerformanceTool();
-		JCommander.newBuilder().addObject(performancePool).build().parse(argv);
+		JCommander build = JCommander.newBuilder().addObject(performancePool).build();
+		build.setProgramName("performance test tool");
+		build.parse(argv);
+		if(performancePool.help){
+			build.usage();
+			return;
+		}
 		performancePool.run();
 	}
 
