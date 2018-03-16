@@ -1,18 +1,20 @@
 package com.test.performance.result;
 
-public class Result {
+import com.test.performance.execute.ExecuteResult;
+
+public class PerformanceResult {
 	
 	private long startTime;
 	private String trackingId;
-	private boolean result;
 	private long consumeTime;
-	
-	public Result(long startTime, String trackingId, boolean result, long consumeTime) {
+	private ExecuteResult executeResult;
+ 	
+	public PerformanceResult(long startTime, String trackingId,  long consumeTime, ExecuteResult executeResult) {
 		super();
 		this.startTime = startTime;
 		this.trackingId = trackingId;
-		this.result = result;
 		this.consumeTime = consumeTime;
+		this.executeResult = executeResult;
 	}
 	/**
 	 * @return the trackingId
@@ -20,12 +22,7 @@ public class Result {
 	public String getTrackingId() {
 		return trackingId;
 	}
-	/**
-	 * @return the result
-	 */
-	public boolean isResult() {
-		return result;
-	}
+ 
 	/**
 	 * @return the consumeTime
 	 */
@@ -38,17 +35,36 @@ public class Result {
 	public void setTrackingId(String trackingId) {
 		this.trackingId = trackingId;
 	}
-	/**
-	 * @param result the result to set
-	 */
-	public void setResult(boolean result) {
-		this.result = result;
-	}
+	 
 	/**
 	 * @param consumeTime the consumeTime to set
 	 */
 	public void setConsumeTime(long consumeTime) {
 		this.consumeTime = consumeTime;
+	}
+	/**
+	 * @return the startTime
+	 */
+	public long getStartTime() {
+		return startTime;
+	}
+	/**
+	 * @return the executeResult
+	 */
+	public ExecuteResult getExecuteResult() {
+		return executeResult;
+	}
+	/**
+	 * @param startTime the startTime to set
+	 */
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
+	/**
+	 * @param executeResult the executeResult to set
+	 */
+	public void setExecuteResult(ExecuteResult executeResult) {
+		this.executeResult = executeResult;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -56,18 +72,18 @@ public class Result {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ResultRecord [startTime=");
+		builder.append("PerformanceResult [startTime=");
 		builder.append(startTime);
 		builder.append("&trackingId=");
 		builder.append(trackingId);
-		builder.append("&result=");
-		builder.append(result);
 		builder.append("&consumeTime=");
 		builder.append(consumeTime);
+		builder.append("&executeResult=");
+		builder.append(executeResult);
 		builder.append("]");
 		return builder.toString();
 	}
-	
+	 
 	 
 	
  

@@ -7,7 +7,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.test.performance.execute.AbstractExecutor;
 import com.test.performance.result.CollectMethod;
-import com.test.performance.result.Result;
+import com.test.performance.result.PerformanceResult;
 import com.test.performance.result.ResultCollector;
 
 public class PerformanceTool {
@@ -57,7 +57,7 @@ public class PerformanceTool {
 						}
 						try {
 							String trackingID = String.format("%s_%d_%d_%d", ip, Thread.currentThread().getId(), currentTimeMillis, totalRequests.incrementAndGet());
-							Result result = abstractExecutor.execute(trackingID);
+							PerformanceResult result = abstractExecutor.execute(trackingID);
 							resultCollector.record(result);
 						} catch (Exception e) {
 							e.printStackTrace();

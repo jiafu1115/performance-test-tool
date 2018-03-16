@@ -13,7 +13,7 @@ public class ResultCollector {
 		this.collectResultable = collectResultable;
 	}
  
-	public void record(Result resultRecord) {
+	public void record(PerformanceResult resultRecord) {
 		threadPool.submit(new Runnable() {
 			
 			@Override

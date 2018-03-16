@@ -1,9 +1,9 @@
 package com.test.performance.execute;
 
-import com.test.performance.result.Result;
+import com.test.performance.result.PerformanceResult;
 
 public interface Executor {
 	
-	public Result execute(String trackingId);
+	public PerformanceResult execute(String trackingId);
 
 }

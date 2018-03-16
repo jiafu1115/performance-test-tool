@@ -1,26 +1,27 @@
 package com.test.performance.execute;
 
-import com.test.performance.result.Result;
+import com.test.performance.result.PerformanceResult;
 
 public abstract class AbstractExecutor implements Executor{
  
 	@Override
-	public Result execute(String trackingId) {
+	public PerformanceResult execute(String trackingId) {
 		long startTime = System.currentTimeMillis();
 		
-		boolean result = true;
+		ExecuteResult result = new ExecuteResult();
 		try{
 			result = run(trackingId);
 		}catch(Exception e){
-			result = false;
 			e.printStackTrace();
+			result.setSuccess(false);
+			result.setMessage(e.getMessage());
 		}
 		
 		long endTime = System.currentTimeMillis();
  		long comsumeTime = endTime - startTime;
- 		return new Result(startTime, trackingId, result, comsumeTime);
+ 		return new PerformanceResult(startTime, trackingId, comsumeTime, result);
   	}
 	
-	protected abstract boolean run(String trackingId);
+	protected abstract ExecuteResult run(String trackingId);
 
 }
