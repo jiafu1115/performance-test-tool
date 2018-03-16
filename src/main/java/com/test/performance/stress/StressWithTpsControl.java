@@ -12,9 +12,9 @@ public class StressWithTpsControl extends AbstractStress implements Runnable{
 	private ScheduledExecutorService scheduledExecutorService;
 	private long tps;
 
-	public StressWithTpsControl(AbstractExecutor abstractExecutor, ResultCollector resultCollector, long duration,
+	public StressWithTpsControl(AbstractExecutor abstractExecutor, ResultCollector resultCollector, long durationInMills,
 			long tps) {
-		super(abstractExecutor, resultCollector, duration);
+		super(abstractExecutor, resultCollector, durationInMills);
 		this.tps = tps;
 		this.scheduledExecutorService = Executors.newScheduledThreadPool(10);
 	}
@@ -22,12 +22,16 @@ public class StressWithTpsControl extends AbstractStress implements Runnable{
 	@Override
 	public void stress() {
 		scheduledExecutorService.scheduleAtFixedRate(this, 0, 1000l * 1000 * 1000 / tps, TimeUnit.NANOSECONDS);
+		try {
+			scheduledExecutorService.awaitTermination(duration, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void run() {
-		long currentTimeMillis = System.currentTimeMillis();
-		if (currentTimeMillis >= expectedEndTimeInMillis) {
+		if (System.currentTimeMillis() >= expectedEndTimeInMillis) {
 			if(!this.scheduledExecutorService.isShutdown()){
 				this.scheduledExecutorService.shutdown();
 			}

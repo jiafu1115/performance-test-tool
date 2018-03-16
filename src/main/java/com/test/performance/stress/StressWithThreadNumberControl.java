@@ -13,8 +13,6 @@ public class StressWithThreadNumberControl extends AbstractStress implements Run
 		super(abstractExecutor, resultCollector, duration);
 		this.threadNumber = threadNumber;
 	}
-	
-	
 
 	@Override
 	public void stress() {

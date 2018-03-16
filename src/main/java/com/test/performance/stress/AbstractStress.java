@@ -27,16 +27,17 @@ public abstract class AbstractStress {
  	
   
 	public AbstractStress(AbstractExecutor abstractExecutor,
-	ResultCollector resultCollector, long duration) {
+	ResultCollector resultCollector, long durationInMills) {
 		this.abstractExecutor = abstractExecutor;
 		this.resultCollector = resultCollector;
-		this.duration = duration;
-		this.expectedEndTimeInMillis = startTime + duration * 1000;
+		this.duration = durationInMills;
+		this.expectedEndTimeInMillis = startTime + durationInMills;
 	}
 	
 	public void stressWithProgreeReport(){
 		scheduledExecutorService.scheduleWithFixedDelay(()-> System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), totalRequests.get()/(System.currentTimeMillis() - startTime)/1000)), 10, 10, TimeUnit.SECONDS);
 		this.stress();
+		scheduledExecutorService.shutdown();
 	}
 	
 	public abstract void stress();
