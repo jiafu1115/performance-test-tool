@@ -12,7 +12,7 @@ import com.test.performance.result.ResultCollector;
 
 public abstract class AbstractStress {
 	
-	private static final String REPORT_FORMAT = "send total requests [%s] with tps [%s]";
+	private static final String REPORT_FORMAT = "[Report] send total requests [%s] with TPS [%s] comsume [%s]seconds";
  
  	protected long startTime = System.currentTimeMillis();
 	protected long expectedEndTimeInMillis;
@@ -35,7 +35,7 @@ public abstract class AbstractStress {
 	}
 	
 	public void stressWithProgreeReport(){
-		scheduledExecutorService.scheduleWithFixedDelay(()-> System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), totalRequests.get()/(System.currentTimeMillis() - startTime)/1000)), 10, 10, TimeUnit.SECONDS);
+		scheduledExecutorService.scheduleWithFixedDelay(()-> System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), totalRequests.get() * 1000/(System.currentTimeMillis() - startTime), (System.currentTimeMillis() - startTime)/1000)), 0, 1, TimeUnit.SECONDS);
 		this.stress();
 		scheduledExecutorService.shutdown();
 	}
