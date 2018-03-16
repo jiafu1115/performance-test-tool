@@ -10,7 +10,7 @@ import com.test.performance.stress.StressWithTpsControl;
 
 public class PerformanceTool {
 
-	@Parameter(required = true, names = { "--implement", "-i" },  description = "com.test.performance.demo.DemoExecutorImpl")
+	@Parameter(required = true, names = { "--implement", "-i" },  description = "com.test.performance.demo.DemoTestCaseImpl")
 	private String implementClass;
 
 	@Parameter(required = true, names = { "--collect", "-c" },  description = "com.test.performance.demo.DemoCollectMethodImpl")

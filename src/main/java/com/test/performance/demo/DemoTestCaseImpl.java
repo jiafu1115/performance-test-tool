@@ -3,7 +3,7 @@ package com.test.performance.demo;
 import com.test.performance.execute.AbstractTestCaseExecutor;
 import com.test.performance.execute.TestCaseResult;
 
-public class DemoExecutorImpl extends AbstractTestCaseExecutor {
+public class DemoTestCaseImpl extends AbstractTestCaseExecutor {
 
 	@Override
 	protected TestCaseResult run(String trackingId) {
