@@ -23,5 +23,10 @@ public abstract class AbstractExecutor implements Executor{
   	}
 	
 	protected abstract ExecuteResult run(String trackingId);
+	
+	public boolean prepare(){
+		System.out.println("prepare before test");
+		return true;
+	}
 
 }
