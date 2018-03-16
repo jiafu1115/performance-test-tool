@@ -18,7 +18,7 @@ public class StressWithThreadNumberControl extends AbstractStress implements Run
 	public void stress() {
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		for (int i = 0; i < threadNumber; i++) {
-			Thread thread = new Thread(this);
+			Thread thread = new Thread(this, "stress");
 			threads.add(thread);
 			thread.start();
 		}

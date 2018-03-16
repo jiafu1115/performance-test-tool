@@ -23,7 +23,7 @@ public abstract class AbstractStress {
 	protected AbstractExecutor abstractExecutor;
 	protected ResultCollector resultCollector;
 	
-	private ScheduledExecutorService scheduledExecutorService =  Executors.newScheduledThreadPool(1);
+	private ScheduledExecutorService scheduledExecutorService =  Executors.newScheduledThreadPool(1, r -> new Thread(r, "reportProgress"));
  	
 	private  class ReportProgress implements Runnable{
 

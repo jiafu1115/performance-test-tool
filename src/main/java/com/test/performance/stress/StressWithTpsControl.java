@@ -16,7 +16,7 @@ public class StressWithTpsControl extends AbstractStress implements Runnable{
 			long tps) {
 		super(abstractExecutor, resultCollector, durationInMills);
 		this.tps = tps;
-		this.scheduledExecutorService = Executors.newScheduledThreadPool(10);
+		this.scheduledExecutorService = Executors.newScheduledThreadPool(50, r -> new Thread("stress"));
 	}
 
 	@Override

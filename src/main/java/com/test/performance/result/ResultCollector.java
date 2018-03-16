@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 public class ResultCollector {
 	
-	protected ExecutorService threadPool = Executors.newCachedThreadPool();
+	protected ExecutorService threadPool = Executors.newCachedThreadPool(r -> new Thread(r, "recordResult"));
 	
 	private CollectMethod collectResultable;
   
