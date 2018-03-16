@@ -4,15 +4,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.test.performance.execute.AbstractExecutor;
-import com.test.performance.result.ResultCollector;
+import com.test.performance.execute.AbstractTestCaseExecutor;
+import com.test.performance.result.PerformanceResultCollector;
 
 public class StressWithTpsControl extends AbstractStress implements Runnable{
  
 	private ScheduledExecutorService scheduledExecutorService;
 	private long tps;
 
-	public StressWithTpsControl(AbstractExecutor abstractExecutor, ResultCollector resultCollector, long durationInMills,
+	public StressWithTpsControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, long durationInMills,
 			long tps) {
 		super(abstractExecutor, resultCollector, durationInMills);
 		this.tps = tps;

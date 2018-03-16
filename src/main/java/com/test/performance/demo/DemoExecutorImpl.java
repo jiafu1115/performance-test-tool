@@ -1,19 +1,19 @@
 package com.test.performance.demo;
 
-import com.test.performance.execute.AbstractExecutor;
-import com.test.performance.execute.ExecuteResult;
+import com.test.performance.execute.AbstractTestCaseExecutor;
+import com.test.performance.execute.TestCaseResult;
 
-public class DemoExecutorImpl extends AbstractExecutor {
+public class DemoExecutorImpl extends AbstractTestCaseExecutor {
 
 	@Override
-	protected ExecuteResult run(String trackingId) {
+	protected TestCaseResult run(String trackingId) {
 		System.out.println("run test case with trackingId:" + trackingId);
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
- 		return new ExecuteResult();
+ 		return new TestCaseResult();
 	}
 	 
 }

@@ -6,9 +6,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.test.performance.PerformanceUtil;
-import com.test.performance.execute.AbstractExecutor;
+import com.test.performance.execute.AbstractTestCaseExecutor;
 import com.test.performance.result.PerformanceResult;
-import com.test.performance.result.ResultCollector;
+import com.test.performance.result.PerformanceResultCollector;
 
 public abstract class AbstractStress {
 	
@@ -20,8 +20,8 @@ public abstract class AbstractStress {
 	protected AtomicLong totalRequests = new AtomicLong();
 	protected String ip = PerformanceUtil.getLocalIp();
 	
-	protected AbstractExecutor abstractExecutor;
-	protected ResultCollector resultCollector;
+	protected AbstractTestCaseExecutor abstractExecutor;
+	protected PerformanceResultCollector resultCollector;
 	
 	private ScheduledExecutorService scheduledExecutorService =  Executors.newScheduledThreadPool(1, r -> new Thread(r, "reportProgress"));
  	
@@ -34,8 +34,8 @@ public abstract class AbstractStress {
 		
 	}
   
-	public AbstractStress(AbstractExecutor abstractExecutor,
-	ResultCollector resultCollector, long durationInMills) {
+	public AbstractStress(AbstractTestCaseExecutor abstractExecutor,
+	PerformanceResultCollector resultCollector, long durationInMills) {
 		this.abstractExecutor = abstractExecutor;
 		this.resultCollector = resultCollector;
 		this.duration = durationInMills;

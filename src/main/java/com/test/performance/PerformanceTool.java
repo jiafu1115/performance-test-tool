@@ -2,8 +2,8 @@ package com.test.performance;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.test.performance.execute.AbstractExecutor;
-import com.test.performance.result.ResultCollector;
+import com.test.performance.execute.AbstractTestCaseExecutor;
+import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.stress.AbstractStress;
 import com.test.performance.stress.StressWithThreadNumberControl;
 import com.test.performance.stress.StressWithTpsControl;
@@ -32,8 +32,8 @@ public class PerformanceTool {
 	}
 
 	public void run() {
-		AbstractExecutor abstractExecutor = PerformanceUtil.getClassInstace(implementClass);
-		ResultCollector resultCollector = new ResultCollector(PerformanceUtil.getClassInstace(collectClass));
+		AbstractTestCaseExecutor abstractExecutor = PerformanceUtil.getClassInstace(implementClass);
+		PerformanceResultCollector resultCollector = new PerformanceResultCollector(PerformanceUtil.getClassInstace(collectClass));
 
 		boolean isPrepareSuccess = prepareCondition(abstractExecutor);
 
@@ -45,21 +45,21 @@ public class PerformanceTool {
 		doStress(abstractExecutor, resultCollector);
 	}
 
-	private boolean prepareCondition(AbstractExecutor abstractExecutor) {
+	private boolean prepareCondition(AbstractTestCaseExecutor abstractExecutor) {
 		System.out.println("####prepare start####");
-		boolean isPrepareSuccess = abstractExecutor.prepare();
+		boolean isPrepareSuccess = abstractExecutor.prepareEnvironment();
 		System.out.println("####prepare complete####");
 		return isPrepareSuccess;
 	}
 
-	private void doStress(AbstractExecutor abstractExecutor, ResultCollector resultCollector) {
+	private void doStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector) {
 		System.out.println("####stress start####");
 		AbstractStress abstractStress = getStress(abstractExecutor, resultCollector);
 		abstractStress.stressWithProgreeReport();
 		System.out.println("####stree complete####");
 	}
 
-	private AbstractStress getStress(AbstractExecutor abstractExecutor, ResultCollector resultCollector) {
+	private AbstractStress getStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector) {
 		int durationInMills = durationInSeconds * 1000;
 		return tps != -1 ? new StressWithTpsControl(abstractExecutor, resultCollector, durationInMills, tps)
 				: new StressWithThreadNumberControl(abstractExecutor, resultCollector, durationInMills, threadNumber);

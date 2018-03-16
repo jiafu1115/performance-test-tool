@@ -1,20 +1,21 @@
 package com.test.performance.result;
 
-import com.test.performance.execute.ExecuteResult;
-
 public class PerformanceResult {
 	
 	private long startTime;
 	private String trackingId;
 	private long consumeTime;
-	private ExecuteResult executeResult;
- 	
-	public PerformanceResult(long startTime, String trackingId,  long consumeTime, ExecuteResult executeResult) {
+	private boolean isSuccess;
+	private String message;
+  	
+	public PerformanceResult(String trackingId, boolean isSuccess, String message, long startTime, long consumeTime) {
 		super();
 		this.startTime = startTime;
 		this.trackingId = trackingId;
 		this.consumeTime = consumeTime;
-		this.executeResult = executeResult;
+		this.isSuccess = isSuccess;
+		this.message = 	message;
+;
 	}
 	/**
 	 * @return the trackingId
@@ -48,12 +49,7 @@ public class PerformanceResult {
 	public long getStartTime() {
 		return startTime;
 	}
-	/**
-	 * @return the executeResult
-	 */
-	public ExecuteResult getExecuteResult() {
-		return executeResult;
-	}
+	 
 	/**
 	 * @param startTime the startTime to set
 	 */
@@ -61,10 +57,28 @@ public class PerformanceResult {
 		this.startTime = startTime;
 	}
 	/**
-	 * @param executeResult the executeResult to set
+	 * @return the isSuccess
 	 */
-	public void setExecuteResult(ExecuteResult executeResult) {
-		this.executeResult = executeResult;
+	public boolean isSuccess() {
+		return isSuccess;
+	}
+	/**
+	 * @return the message
+	 */
+	public String getMessage() {
+		return message;
+	}
+	/**
+	 * @param isSuccess the isSuccess to set
+	 */
+	public void setSuccess(boolean isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+	/**
+	 * @param message the message to set
+	 */
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -72,18 +86,19 @@ public class PerformanceResult {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("PerformanceResult [startTime=");
-		builder.append(startTime);
-		builder.append("&trackingId=");
+		builder.append("PerformanceResult [trackingId=");
 		builder.append(trackingId);
+		builder.append("&isSuccess=");
+		builder.append(isSuccess);
+		builder.append("&message=");
+		builder.append(message);
+		builder.append("&startTime=");
+		builder.append(startTime);
 		builder.append("&consumeTime=");
 		builder.append(consumeTime);
-		builder.append("&executeResult=");
-		builder.append(executeResult);
 		builder.append("]");
 		return builder.toString();
 	}
-	 
 	 
 	
  

@@ -1,6 +1,6 @@
 package com.test.performance.execute;
 
-public class ExecuteResult {
+public class TestCaseResult {
 	
 	private boolean isSuccess;
 	private String message;

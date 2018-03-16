@@ -1,15 +1,20 @@
 package com.test.performance.result;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
-public class ResultCollector {
+public class PerformanceResultCollector {
 	
-	protected ExecutorService threadPool = Executors.newCachedThreadPool(r -> new Thread(r, "recordResult"));
+	protected ExecutorService threadPool =  new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+            3, TimeUnit.SECONDS,
+            new SynchronousQueue<Runnable>(),
+            r -> new Thread(r, "recordResult"));
 	
 	private CollectMethod collectResultable;
   
-	public ResultCollector(CollectMethod collectResultable) {
+	public PerformanceResultCollector(CollectMethod collectResultable) {
 		this.collectResultable = collectResultable;
 	}
  
