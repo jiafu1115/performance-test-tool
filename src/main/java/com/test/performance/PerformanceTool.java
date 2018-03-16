@@ -1,7 +1,12 @@
 package com.test.performance;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.beust.jcommander.DynamicParameter;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.test.performance.result.CollectMethod;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.stress.AbstractStress;
 import com.test.performance.stress.StressWithThreadNumberControl;
@@ -21,9 +26,12 @@ public class PerformanceTool {
 
 	@Parameter(names = { "-duration"})
 	private int durationInSeconds = 10;
-
+	 
 	@Parameter(names = { "-tps"})
 	private int tps = -1;
+	
+	@DynamicParameter(names = "-d", description = "dynamic parameters")
+	private Map<String, String> params = new HashMap<>();
 
 	public static void main(String... argv) throws Exception {
 		PerformanceTool performancePool = new PerformanceTool();
@@ -36,7 +44,8 @@ public class PerformanceTool {
 		System.out.println(this);
 		
 		AbstractTestCaseExecutor abstractExecutor = PerformanceUtil.getClassInstace(testCaseClass);
-		PerformanceResultCollector resultCollector = new PerformanceResultCollector(PerformanceUtil.getClassInstace(collectResultClass));
+		CollectMethod classInstace = PerformanceUtil.getClassInstace(collectResultClass);
+		PerformanceResultCollector resultCollector = new PerformanceResultCollector(classInstace);
  
 		boolean isPrepareSuccess = prepareCondition(abstractExecutor);
 
@@ -88,6 +97,8 @@ public class PerformanceTool {
 			builder.append("\ntps=");
 			builder.append(tps);
 		}
+ 		builder.append("\nparams=");
+		builder.append(params);
  		builder.append("\n]");
 		return builder.toString();
 	}

@@ -1,9 +1,10 @@
 package com.test.performance.testcase;
 
+
 import com.test.performance.result.PerformanceResult;
 
 public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
- 
+   
 	@Override
 	public PerformanceResult execute(String trackingId) {
 		long startTime = System.currentTimeMillis();
@@ -25,8 +26,10 @@ public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
 	protected abstract TestCaseResult run(String trackingId);
 	
 	public boolean prepareEnvironment(){
-		System.out.println("prepare before test");
 		return true;
 	}
+
+
+	
 
 }
