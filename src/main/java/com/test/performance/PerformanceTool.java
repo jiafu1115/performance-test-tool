@@ -22,13 +22,13 @@ public class PerformanceTool {
 	@Parameter(required = true, names = { "--record", "-r" },  description = "record test result class, such as com.test.performance.demo.DemoCollectMethodImpl")
 	private String collectResultClass;
 
-	@Parameter(names = { "-thread" })
+	@Parameter(names = { "-thread" }, description = "if thread number is set, tps setting is ignored")
 	private int threadNumber = 1;
 
-	@Parameter(names = { "-duration"})
+	@Parameter(names = { "-duration"}, description = "keep how much time in second for test")
 	private int durationInSeconds = 10;
 	 
-	@Parameter(names = { "-tps"})
+	@Parameter(names = { "-tps"}, description = "if tps is set, thread number setting is ignored")
 	private int tps = -1;
 	
 	@DynamicParameter(names = "-d", description = "dynamic parameters")
