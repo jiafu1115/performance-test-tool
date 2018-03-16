@@ -1,4 +1,4 @@
-package com.test.performance.execute;
+package com.test.performance.testcase;
 
 public class TestCaseResult {
 	

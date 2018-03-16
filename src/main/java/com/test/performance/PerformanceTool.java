@@ -2,11 +2,11 @@ package com.test.performance;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.test.performance.execute.AbstractTestCaseExecutor;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.stress.AbstractStress;
 import com.test.performance.stress.StressWithThreadNumberControl;
 import com.test.performance.stress.StressWithTpsControl;
+import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public class PerformanceTool {
 

@@ -1,7 +1,7 @@
 package com.test.performance.demo;
 
-import com.test.performance.execute.AbstractTestCaseExecutor;
-import com.test.performance.execute.TestCaseResult;
+import com.test.performance.testcase.AbstractTestCaseExecutor;
+import com.test.performance.testcase.TestCaseResult;
 
 public class DemoTestCaseImpl extends AbstractTestCaseExecutor {
 

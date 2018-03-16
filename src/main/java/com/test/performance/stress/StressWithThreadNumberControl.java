@@ -1,8 +1,9 @@
 package com.test.performance.stress;
 
 import java.util.ArrayList;
-import com.test.performance.execute.AbstractTestCaseExecutor;
+
 import com.test.performance.result.PerformanceResultCollector;
+import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public class StressWithThreadNumberControl extends AbstractStress implements Runnable {
 

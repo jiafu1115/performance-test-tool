@@ -1,4 +1,4 @@
-package com.test.performance.execute;
+package com.test.performance.testcase;
 
 import com.test.performance.result.PerformanceResult;
 

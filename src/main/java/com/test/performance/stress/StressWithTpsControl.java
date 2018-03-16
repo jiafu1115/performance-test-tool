@@ -4,8 +4,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.test.performance.execute.AbstractTestCaseExecutor;
 import com.test.performance.result.PerformanceResultCollector;
+import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public class StressWithTpsControl extends AbstractStress implements Runnable{
  

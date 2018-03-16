@@ -6,9 +6,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.test.performance.PerformanceUtil;
-import com.test.performance.execute.AbstractTestCaseExecutor;
 import com.test.performance.result.PerformanceResult;
 import com.test.performance.result.PerformanceResultCollector;
+import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public abstract class AbstractStress {
 	
