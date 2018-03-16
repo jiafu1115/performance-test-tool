@@ -25,6 +25,14 @@ public abstract class AbstractStress {
 	
 	private ScheduledExecutorService scheduledExecutorService =  Executors.newScheduledThreadPool(1);
  	
+	private  class ReportProgress implements Runnable{
+
+		@Override
+		public void run() {
+			System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), totalRequests.get() * 1000/(System.currentTimeMillis() - startTime), (System.currentTimeMillis() - startTime)/1000));
+		}
+		
+	}
   
 	public AbstractStress(AbstractExecutor abstractExecutor,
 	ResultCollector resultCollector, long durationInMills) {
@@ -35,9 +43,11 @@ public abstract class AbstractStress {
 	}
 	
 	public void stressWithProgreeReport(){
-		scheduledExecutorService.scheduleWithFixedDelay(()-> System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), totalRequests.get() * 1000/(System.currentTimeMillis() - startTime), (System.currentTimeMillis() - startTime)/1000)), 0, 1, TimeUnit.SECONDS);
+		ReportProgress reportProgress = new ReportProgress();
+		scheduledExecutorService.scheduleWithFixedDelay(reportProgress, 0, 1, TimeUnit.SECONDS);
 		this.stress();
-		scheduledExecutorService.shutdown();
+		reportProgress.run();
+		scheduledExecutorService.shutdownNow();
 	}
 	
 	public abstract void stress();
