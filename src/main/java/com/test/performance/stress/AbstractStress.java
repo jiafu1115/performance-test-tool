@@ -54,7 +54,7 @@ public abstract class AbstractStress {
 	
 	protected void executeTestCase() {
 		try {
-			String trackingID = getTrackingID();
+			String trackingID = createTrackingID();
 			PerformanceResult result = abstractExecutor.execute(trackingID);
 			resultCollector.record(result);
 		} catch (Exception e) {
@@ -62,7 +62,7 @@ public abstract class AbstractStress {
 		}
 	}
 
-	private String getTrackingID() {
+	private String createTrackingID() {
 		return String.format("%s_%d_%d_%d", ip, Thread.currentThread().getId(), System.currentTimeMillis(), totalRequests.incrementAndGet());
 	}
   	
