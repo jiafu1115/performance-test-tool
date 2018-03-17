@@ -49,7 +49,7 @@ public abstract class AbstractStress {
 	
 	public void stressWithProgreeReport(){
 		ReportProgress reportProgress = new ReportProgress();
-		scheduledExecutorService.scheduleWithFixedDelay(reportProgress, 0, 1, TimeUnit.SECONDS);
+		scheduledExecutorService.scheduleWithFixedDelay(reportProgress, 0, 5, TimeUnit.SECONDS);
 		this.stress();
 		reportProgress.run();
 		scheduledExecutorService.shutdownNow();
