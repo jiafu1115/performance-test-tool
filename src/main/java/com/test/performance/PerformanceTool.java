@@ -88,6 +88,7 @@ public class PerformanceTool {
 	private void doStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector) {
 		System.out.println("####stress start####");
 		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, runid, durationInSeconds, threadNumber, tps);
+		System.out.println("####" + stress + "####");
 		stress.stressWithProgreeReport();
 		System.out.println("####stree complete####");
 	}
