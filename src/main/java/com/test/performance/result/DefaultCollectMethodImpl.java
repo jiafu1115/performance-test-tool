@@ -1,7 +1,4 @@
-package com.test.performance.demo;
-
-import com.test.performance.result.CollectMethod;
-import com.test.performance.result.PerformanceResult;
+package com.test.performance.result;
 
 public class DefaultCollectMethodImpl implements CollectMethod {
 
