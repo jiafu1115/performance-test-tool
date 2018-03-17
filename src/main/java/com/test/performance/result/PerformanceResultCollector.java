@@ -13,7 +13,8 @@ public class PerformanceResultCollector {
             r -> new Thread(r, "recordResult"));
 	
 	private CollectMethod collectResultable;
-  
+	
+   
 	public PerformanceResultCollector(CollectMethod collectResultable) {
 		this.collectResultable = collectResultable;
 	}

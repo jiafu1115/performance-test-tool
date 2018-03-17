@@ -19,8 +19,8 @@ public class PerformanceTool {
 	@Parameter(required = true, names = { "--test", "-t" },  description = "test case class, such as com.test.performance.demo.DemoTestCaseImpl")
 	private String testCaseClass;
 
-	@Parameter(required = true, names = { "--record", "-r" },  description = "record test result class, such as com.test.performance.demo.DemoCollectMethodImpl")
-	private String collectResultClass;
+	@Parameter(names = { "--record", "-r" },  description = "record test result class, such as com.test.performance.demo.DemoCollectMethodImpl")
+	private String collectResultClass = "com.test.performance.demo.DefaultCollectMethodImpl";
 
 	@Parameter(names = { "-thread" }, description = "if thread number is set, tps setting is ignored")
 	private int threadNumber = 1;

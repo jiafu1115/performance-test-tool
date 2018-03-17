@@ -26,3 +26,10 @@ common performance test tool
       Default: -1
 ```
 
+```
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="--help"
+```
+
+```
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="--help"
+```
