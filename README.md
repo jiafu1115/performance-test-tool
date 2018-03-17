@@ -29,7 +29,7 @@ common performance test tool
 ```
 compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="--help"
 ```
-
+ 
 ```
-compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="--help"
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl"
 ```
