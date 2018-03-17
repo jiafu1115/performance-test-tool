@@ -32,7 +32,7 @@ public class PerformanceTool {
 	@Parameter(names = { "-tps"}, description = "if tps is not set, not limit tps. only loop to execute")
 	private int tps = -1;
 	
-	@DynamicParameter(names = "-d", description = "dynamic parameters")
+	@DynamicParameter(names = "-D", description = "dynamic parameters")
 	private Map<String, String> params = new HashMap<>();
 	
 	@Parameter(names = { "-runid" },  description = "run id for this test")
