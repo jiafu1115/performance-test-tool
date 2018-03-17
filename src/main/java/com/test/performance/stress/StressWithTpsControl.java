@@ -13,8 +13,8 @@ public class StressWithTpsControl extends AbstractStress implements Runnable{
 	private long tps;
 
 	public StressWithTpsControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, long durationInMills,
-			long tps) {
-		super(abstractExecutor, resultCollector, durationInMills);
+			String runId, long tps) {
+		super(abstractExecutor, resultCollector, runId, durationInMills);
 		this.tps = tps;
 		this.scheduledExecutorService = Executors.newScheduledThreadPool(50);
 	}

@@ -10,8 +10,8 @@ public class StressWithThreadNumberControl extends AbstractStress implements Run
 	private long threadNumber;
 
 	public StressWithThreadNumberControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector,
-			long durationInMills, long threadNumber) {
-		super(abstractExecutor, resultCollector, durationInMills);
+			long durationInMills, String runId, long threadNumber) {
+		super(abstractExecutor, resultCollector, runId, durationInMills);
 		this.threadNumber = threadNumber;
 	}
 

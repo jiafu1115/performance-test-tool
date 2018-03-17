@@ -2,21 +2,42 @@ package com.test.performance.result;
 
 public class PerformanceResult {
 	
+	private String runId;
 	private long startTime;
 	private String trackingId;
 	private long consumeTime;
 	private boolean isSuccess;
 	private String message;
   	
-	public PerformanceResult(String trackingId, boolean isSuccess, String message, long startTime, long consumeTime) {
+	public PerformanceResult(String runId, String trackingId, boolean isSuccess, String message, long startTime, long consumeTime) {
 		super();
+		this.runId = runId;
 		this.startTime = startTime;
 		this.trackingId = trackingId;
 		this.consumeTime = consumeTime;
 		this.isSuccess = isSuccess;
 		this.message = 	message;
-;
 	}
+	
+	 
+	/**
+	 * @return the runId
+	 */
+	public String getRunId() {
+		return runId;
+	}
+
+
+
+	/**
+	 * @param runId the runId to set
+	 */
+	public void setRunId(String runId) {
+		this.runId = runId;
+	}
+
+
+
 	/**
 	 * @return the trackingId
 	 */
@@ -80,13 +101,17 @@ public class PerformanceResult {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("PerformanceResult [trackingId=");
+		builder.append("PerformanceResult [runId=");
+		builder.append(runId);
+		builder.append("&trackingId=");
 		builder.append(trackingId);
 		builder.append("&isSuccess=");
 		builder.append(isSuccess);
@@ -99,7 +124,7 @@ public class PerformanceResult {
 		builder.append("]");
 		return builder.toString();
 	}
-	 
+ 
 	
  
 }

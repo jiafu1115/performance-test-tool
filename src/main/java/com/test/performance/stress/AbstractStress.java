@@ -17,6 +17,7 @@ public abstract class AbstractStress {
  	protected long startTime = System.currentTimeMillis();
 	protected long expectedEndTimeInMillis;
 	protected long duration;
+	protected String runId;
 	protected AtomicLong totalRequests = new AtomicLong();
 	protected AtomicLong failRequests = new AtomicLong();
 
@@ -38,9 +39,10 @@ public abstract class AbstractStress {
 	}
   
 	public AbstractStress(AbstractTestCaseExecutor abstractExecutor,
-	PerformanceResultCollector resultCollector, long durationInMills) {
+	PerformanceResultCollector resultCollector, String runId, long durationInMills) {
 		this.abstractExecutor = abstractExecutor;
 		this.resultCollector = resultCollector;
+		this.runId = runId;
 		this.duration = durationInMills;
 		this.expectedEndTimeInMillis = startTime + durationInMills;
 	}
@@ -58,7 +60,7 @@ public abstract class AbstractStress {
 	protected void executeTestCase() {
 		try {
 			String trackingID = createTrackingID();
-			PerformanceResult result = abstractExecutor.execute(trackingID);
+			PerformanceResult result = abstractExecutor.execute(runId, trackingID);
 			if(!result.isSuccess()){
 				failRequests.incrementAndGet();
 			}

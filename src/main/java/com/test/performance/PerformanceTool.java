@@ -1,5 +1,6 @@
 package com.test.performance;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -31,10 +32,13 @@ public class PerformanceTool {
 	@Parameter(names = { "-tps"}, description = "if tps is set, thread number setting is ignored")
 	private int tps = -1;
 	
-	@DynamicParameter(names = "-d", description = "dynamic parameters")
+	@DynamicParameter(names = "-duration", description = "dynamic parameters")
 	private Map<String, String> params = new HashMap<>();
 	
-	@Parameter(names = "--help", help = true)
+	@Parameter(names = { "-runid" },  description = "run id for this test")
+	private String runid = new Date().toString();
+	
+	@Parameter(names = "-help", help = true)
     private boolean help = false;
 
 	public static void main(String... argv) throws Exception {
@@ -91,8 +95,8 @@ public class PerformanceTool {
 
 	private AbstractStress getStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector) {
 		int durationInMills = durationInSeconds * 1000;
-		return tps != -1 ? new StressWithTpsControl(abstractExecutor, resultCollector, durationInMills, tps)
-				: new StressWithThreadNumberControl(abstractExecutor, resultCollector, durationInMills, threadNumber);
+		return tps != -1 ? new StressWithTpsControl(abstractExecutor, resultCollector, durationInMills, this.runid, tps)
+				: new StressWithThreadNumberControl(abstractExecutor, resultCollector, durationInMills, this.runid, threadNumber);
 	}
 
 	/* (non-Javadoc)
@@ -115,6 +119,8 @@ public class PerformanceTool {
 			builder.append("\ntps=");
 			builder.append(tps);
 		}
+ 		builder.append("\nrunId=");
+		builder.append(runid);
  		builder.append("\nparams=");
 		builder.append(params);
  		builder.append("\n]");

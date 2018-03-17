@@ -6,7 +6,7 @@ import com.test.performance.result.PerformanceResult;
 public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
    
 	@Override
-	public PerformanceResult execute(String trackingId) {
+	public PerformanceResult execute(String runId, String trackingId) {
 		long startTime = System.currentTimeMillis();
 		
 		TestCaseResult result = new TestCaseResult();
@@ -20,7 +20,7 @@ public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
 		
 		long endTime = System.currentTimeMillis();
  		long comsumeTime = endTime - startTime;
- 		return new PerformanceResult(trackingId, result.isSuccess(), result.getMessage(), startTime, comsumeTime);
+ 		return new PerformanceResult(runId, trackingId, result.isSuccess(), result.getMessage(), startTime, comsumeTime);
   	}
 	
 	protected abstract TestCaseResult run(String trackingId);
