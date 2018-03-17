@@ -107,7 +107,7 @@ public class PerformanceTool {
 		builder.append("\nthreadNumber=");
 		builder.append(threadNumber);
 		builder.append("\ntps=");
-		builder.append(tps == -1 ? "unlimited": tps);
+		builder.append(tps);
  		builder.append("\nparams=");
 		builder.append(params);
  		builder.append("\n]");

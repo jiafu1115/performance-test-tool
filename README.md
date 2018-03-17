@@ -4,12 +4,12 @@ common performance test tool
 ```
 Usage: performance test tool [options]
   Options:
-  * --test, -t
-      test case class, such as com.test.performance.demo.DemoTestCaseImpl
     --record, -r
       record test result class, such as 
       com.test.performance.result.DefaultCollectMethodImpl 
       Default: com.test.performance.result.DefaultCollectMethodImpl
+  * --test, -t
+      test case class, such as com.test.performance.demo.DemoTestCaseImpl
     -D
       dynamic parameters
       Syntax: -Dkey=value
@@ -21,24 +21,43 @@ Usage: performance test tool [options]
 
     -runid
       run id for this test, default is date
-      Default: Sat Mar 17 16:11:00 CST 2018
+      Default: Sat Mar 17 19:09:20 CST 2018
     -thread
 
-      Default: 1
-    -tps
-      if tps is not set, not limit tps. only loop to execute
       Default: -1
+    -tps
+
+      Default: -1
+
+
 ```
 
+### Usage: help
 ```
 compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-help"
 ```
+
+## Usage: test with 1 thread and 1 TPS
+
+```
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20"
+```
+
 ## Usage: no limit TPS, just use N thread to loop execute
 
 ```
-compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -thread 5 -duration 20"
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -thread 5"
 ```
+
+## Usage: try to reach limit TPS by unlimited thread
+```
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -tps 30"
+
+
 ## Usage: try to reach limit TPS by N thread
 ```
-compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -thread 5 -duration 20  -tps 30"
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -thread 5 -tps 30"
 ```
+
+
+
