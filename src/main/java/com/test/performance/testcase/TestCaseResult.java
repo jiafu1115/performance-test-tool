@@ -14,6 +14,10 @@ public class TestCaseResult {
 		this.isSuccess = isSuccess;
 	}
 	
+	public TestCaseResult(){
+		
+	}
+	
 	/**
 	 * @return the isSuccess
 	 */
