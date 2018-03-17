@@ -95,13 +95,10 @@ public class PerformanceTool {
 
 	private AbstractStress getStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector) {
 		int durationInMills = durationInSeconds * 1000;
-		return tps != -1 ? new StressWithTpsControl(abstractExecutor, resultCollector, durationInMills, this.runid, tps)
-				: new StressWithThreadNumberControl(abstractExecutor, resultCollector, durationInMills, this.runid, threadNumber);
+		return tps != -1 ? new StressWithTpsControl(abstractExecutor, resultCollector, this.runid, durationInMills, this.threadNumber, this.tps)
+				: new StressWithThreadNumberControl(abstractExecutor, resultCollector, this.runid, durationInMills, this.threadNumber);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -109,24 +106,18 @@ public class PerformanceTool {
 		builder.append(testCaseClass);
 		builder.append("\ncollectResultClass=");
 		builder.append(collectResultClass);
-		if(tps == -1){
-			builder.append("\nthreadNumber=");
-			builder.append(threadNumber);
-		}
- 		builder.append("\ndurationInSeconds=");
-		builder.append(durationInSeconds);
-		if(tps != -1){
-			builder.append("\ntps=");
-			builder.append(tps);
-		}
  		builder.append("\nrunId=");
 		builder.append(runid);
+ 		builder.append("\ndurationInSeconds=");
+		builder.append(durationInSeconds);
+		builder.append("\nthreadNumber=");
+		builder.append(threadNumber);
+		builder.append("\ntps=");
+		builder.append(tps == -1 ? "unlimited": tps);
  		builder.append("\nparams=");
 		builder.append(params);
  		builder.append("\n]");
 		return builder.toString();
 	}
 	
-	
-
 }
