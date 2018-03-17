@@ -4,12 +4,12 @@ common performance test tool
 ```
 Usage: performance test tool [options]
   Options:
+  * --test, -t
+      test case class, such as com.test.performance.demo.DemoTestCaseImpl
     --record, -r
       record test result class, such as 
       com.test.performance.result.DefaultCollectMethodImpl 
       Default: com.test.performance.result.DefaultCollectMethodImpl
-  * --test, -t
-      test case class, such as com.test.performance.demo.DemoTestCaseImpl
     -D
       dynamic parameters
       Syntax: -Dkey=value
