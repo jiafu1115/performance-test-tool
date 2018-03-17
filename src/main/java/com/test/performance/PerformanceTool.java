@@ -23,7 +23,7 @@ public class PerformanceTool {
 	private String collectResultClass = "com.test.performance.result.DefaultCollectMethodImpl";
 	
 	@Parameter(names = { "-runid" },  description = "run id for this test, default is date")
-	private String runid = new Date().toString();
+	private String runId = new Date().toString();
 	
 	@Parameter(names = { "-duration"}, description = "keep how much time in second for test")
 	private int durationInSeconds = 10;
@@ -87,7 +87,7 @@ public class PerformanceTool {
 
 	private void doStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector) {
 		System.out.println("####stress start####");
-		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, runid, durationInSeconds, threadNumber, tps);
+		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, runId, durationInSeconds, threadNumber, tps);
 		System.out.println("####" + stress + "####");
 		stress.stressWithProgreeReport();
 		System.out.println("####strees complete####");
@@ -101,7 +101,7 @@ public class PerformanceTool {
 		builder.append("\ncollectResultClass=");
 		builder.append(collectResultClass);
  		builder.append("\nrunId=");
-		builder.append(runid);
+		builder.append(runId);
  		builder.append("\ndurationInSeconds=");
 		builder.append(durationInSeconds);
 		builder.append("\nthreadNumber=");
