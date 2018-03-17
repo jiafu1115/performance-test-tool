@@ -18,7 +18,9 @@
 *.tar.gz
 *.rar
 
-*target
+*target*
+
+*.class
 
 *.lst
 
