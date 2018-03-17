@@ -4,6 +4,16 @@ public class TestCaseResult {
 	
 	private boolean isSuccess = true;
 	private String message = "";
+	 
+	public TestCaseResult(boolean isSuccess, String message) {
+		this.isSuccess = isSuccess;
+		this.message = message;
+	}
+	
+	public TestCaseResult(boolean isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+	
 	/**
 	 * @return the isSuccess
 	 */
