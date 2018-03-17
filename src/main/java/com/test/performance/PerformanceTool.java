@@ -11,8 +11,7 @@ import com.beust.jcommander.Parameter;
 import com.test.performance.result.CollectMethod;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.stress.AbstractStress;
-import com.test.performance.stress.StressWithThreadNumberControl;
-import com.test.performance.stress.StressWithTpsControl;
+import com.test.performance.stress.StressFactory;
 import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public class PerformanceTool {
@@ -24,7 +23,7 @@ public class PerformanceTool {
 	private String collectResultClass = "com.test.performance.result.DefaultCollectMethodImpl";
 
 	@Parameter(names = { "-thread" }, description = "")
-	private int threadNumber = 1;
+	private int threadNumber = -1;
 
 	@Parameter(names = { "-duration"}, description = "keep how much time in second for test")
 	private int durationInSeconds = 10;
@@ -88,15 +87,9 @@ public class PerformanceTool {
 
 	private void doStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector) {
 		System.out.println("####stress start####");
-		AbstractStress abstractStress = getStress(abstractExecutor, resultCollector);
-		abstractStress.stressWithProgreeReport();
+		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, runid, durationInSeconds, threadNumber, tps);
+		stress.stressWithProgreeReport();
 		System.out.println("####stree complete####");
-	}
-
-	private AbstractStress getStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector) {
-		int durationInMills = durationInSeconds * 1000;
-		return tps != -1 ? new StressWithTpsControl(abstractExecutor, resultCollector, this.runid, durationInMills, this.threadNumber, this.tps)
-				: new StressWithThreadNumberControl(abstractExecutor, resultCollector, this.runid, durationInMills, this.threadNumber);
 	}
 
 	@Override

@@ -7,9 +7,12 @@ import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public class StressWithThreadNumberControl extends AbstractStress implements Runnable {
 
+	protected long threadNumber;
+
 	public StressWithThreadNumberControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector,
 			String runId, long durationInMills, long threadNumber) {
-		super(abstractExecutor, resultCollector, runId, durationInMills, threadNumber);
+		super(abstractExecutor, resultCollector, runId, durationInMills);
+		this.threadNumber = threadNumber;
 	}
 
 	@Override

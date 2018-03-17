@@ -20,7 +20,6 @@ public abstract class AbstractStress {
 	protected String runId;
 	protected AtomicLong totalRequests = new AtomicLong();
 	protected AtomicLong failRequests = new AtomicLong();
-	protected long threadNumber;
  
 	protected String ip = PerformanceUtil.getLocalIp();
 	
@@ -40,13 +39,12 @@ public abstract class AbstractStress {
 	}
   
 	public AbstractStress(AbstractTestCaseExecutor abstractExecutor,
-	PerformanceResultCollector resultCollector, String runId, long durationInMills, long threadNumber) {
+	PerformanceResultCollector resultCollector, String runId, long durationInMills) {
 		this.abstractExecutor = abstractExecutor;
 		this.resultCollector = resultCollector;
 		this.runId = runId;
 		this.duration = durationInMills;
 		this.expectedEndTimeInMillis = startTime + durationInMills;
-		this.threadNumber = threadNumber;
 	}
 	
 	public void stressWithProgreeReport(){

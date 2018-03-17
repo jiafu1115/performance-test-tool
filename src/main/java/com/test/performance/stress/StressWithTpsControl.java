@@ -1,30 +1,21 @@
 package com.test.performance.stress;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.testcase.AbstractTestCaseExecutor;
 
-public class StressWithTpsControl extends AbstractStress implements Runnable{
- 
-	private List<ScheduledExecutorService> scheduledExecutorServices = new ArrayList<ScheduledExecutorService>();
-	private double rate;
+public class StressWithTpsControl extends AbstractStress implements Runnable {
 
-	public StressWithTpsControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, String runId,
-			long durationInMills, long threadNumber, long tps) {
-		super(abstractExecutor, resultCollector, runId, durationInMills, threadNumber);
-		for (int i = 0; i < threadNumber; i++) {
-			this.scheduledExecutorServices.add(Executors.newScheduledThreadPool(1));
-		}
-		
-		double tpsForSingleThread = Double.parseDouble(String.valueOf(tps)) / this.threadNumber;
-		rate =  1000d * 1000 / tpsForSingleThread ;
-		System.out.println(String.format("########tps to execute for every thead: [%.1f] ########", tpsForSingleThread));
-		System.out.println(String.format("########rate to execute for every thead: [%.1f] Micros ########", rate));
+	private ExecutorService executorService = Executors.newCachedThreadPool();
+	private long tps;
+
+	public StressWithTpsControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector,
+			String runId, long durationInMills, long tps) {
+		super(abstractExecutor, resultCollector, runId, durationInMills);
 	}
 
 	@Override
@@ -34,18 +25,26 @@ public class StressWithTpsControl extends AbstractStress implements Runnable{
 	}
 
 	private void startThreads() {
-		for(ScheduledExecutorService scheduledExecutorService : scheduledExecutorServices) {
-			scheduledExecutorService.scheduleAtFixedRate(this, 0, (int)rate, TimeUnit.MICROSECONDS);
+		long interval = 1000 * 1000 * 1000 / tps;
+		while(System.currentTimeMillis() < this.expectedEndTimeInMillis){
+			sleep(interval);
+			executorService.submit(this);
+		}
+	}
+
+	private void sleep(long interval) {
+		try {
+			TimeUnit.NANOSECONDS.sleep(interval);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 
 	private void awaitThreadsComplete() {
-		for(ScheduledExecutorService scheduledExecutorService : scheduledExecutorServices){
-			try {
-				scheduledExecutorService.awaitTermination(duration, TimeUnit.MILLISECONDS);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}		
+		try {
+			executorService.awaitTermination(duration, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -59,11 +58,11 @@ public class StressWithTpsControl extends AbstractStress implements Runnable{
 	}
 
 	private void shutdownThreads() {
-		for(ScheduledExecutorService scheduledExecutorService : scheduledExecutorServices){
-			if(!scheduledExecutorService.isShutdown()){
-			  scheduledExecutorService.shutdown();
-			}			
+		if (!executorService.isShutdown()) {
+			List<Runnable> uncompletedTasks = executorService.shutdownNow();
+			System.out.println("uncomplete tasks: " + uncompletedTasks.size());
 		}
+
 	}
 
 }
