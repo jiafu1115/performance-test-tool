@@ -6,7 +6,7 @@ import com.test.performance.testcase.TestCaseResult;
 public class DemoTestCaseImpl extends AbstractTestCaseExecutor {
 	
 	public DemoTestCaseImpl(){
-		System.out.println(System.getProperties());
+		//System.out.println(System.getProperties());
 	}
 
 	@Override
