@@ -1,6 +1,5 @@
 package com.test.performance.stress;
 
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +36,7 @@ public class StressWithTpsControl extends AbstractStress implements Runnable {
 		try {
 			TimeUnit.NANOSECONDS.sleep(interval);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			//ignore
 		}
 	}
 
@@ -60,10 +59,8 @@ public class StressWithTpsControl extends AbstractStress implements Runnable {
 
 	private void shutdownThreads() {
 		if (!executorService.isShutdown()) {
-			List<Runnable> uncompletedTasks = executorService.shutdownNow();
-			System.out.println("uncomplete tasks: " + uncompletedTasks.size());
+			executorService.shutdown();
 		}
-
 	}
 
 }

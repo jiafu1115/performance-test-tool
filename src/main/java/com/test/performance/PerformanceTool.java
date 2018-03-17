@@ -21,21 +21,21 @@ public class PerformanceTool {
 
 	@Parameter(names = { "--record", "-r" },  description = "record test result class, such as com.test.performance.result.DefaultCollectMethodImpl")
 	private String collectResultClass = "com.test.performance.result.DefaultCollectMethodImpl";
-
-	@Parameter(names = { "-thread" }, description = "")
-	private int threadNumber = -1;
-
+	
+	@Parameter(names = { "-runid" },  description = "run id for this test, default is date")
+	private String runid = new Date().toString();
+	
 	@Parameter(names = { "-duration"}, description = "keep how much time in second for test")
 	private int durationInSeconds = 10;
+
+	@Parameter(names = { "-thread" })
+	private int threadNumber = -1;
 	 
-	@Parameter(names = { "-tps"}, description = "if tps is not set, not limit tps. only loop to execute")
+	@Parameter(names = { "-tps"})
 	private int tps = -1;
 	
 	@DynamicParameter(names = "-D", description = "dynamic parameters")
 	private Map<String, String> params = new HashMap<>();
-	
-	@Parameter(names = { "-runid" },  description = "run id for this test, default is date")
-	private String runid = new Date().toString();
 	
 	@Parameter(names = "-help", help = true)
     private boolean help = false;
@@ -90,7 +90,7 @@ public class PerformanceTool {
 		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, runid, durationInSeconds, threadNumber, tps);
 		System.out.println("####" + stress + "####");
 		stress.stressWithProgreeReport();
-		System.out.println("####stree complete####");
+		System.out.println("####strees complete####");
 	}
 
 	@Override
