@@ -33,12 +33,12 @@ Usage: performance test tool [options]
 ```
 compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-help"
 ```
-##Usage: no limit TPS, just use N thread to loop execute
+## Usage: no limit TPS, just use N thread to loop execute
 
 ```
 compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -thread 5 -duration 20"
 ```
-##Usage: try to reach limit TPS by N thread
+## Usage: try to reach limit TPS by N thread
 ```
 compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -thread 5 -duration 20  -tps 30"
 ```
