@@ -12,7 +12,7 @@ import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public abstract class AbstractStress {
 	
-	private static final String REPORT_FORMAT = "[Report] send total requests [%s](fail requests: [%s]) with TPS [%s] comsume [%s]seconds";
+	private static final String REPORT_FORMAT = "[Report] send total requests [%s] (fail requests: [%s]) with TPS [%.2f] comsume [%s]seconds";
  
  	protected long startTime = System.currentTimeMillis();
 	protected long expectedEndTimeInMillis;
@@ -33,7 +33,7 @@ public abstract class AbstractStress {
 		@Override
 		public void run() {
 			long duration = System.currentTimeMillis() - startTime;
-			System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), failRequests.get(), totalRequests.get() * 1000/duration, duration/1000));
+			System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), failRequests.get(), totalRequests.get() * 1000d/duration, duration/1000));
 		}
 		
 	}
@@ -73,5 +73,6 @@ public abstract class AbstractStress {
 	private String createTrackingID() {
 		return String.format("%s_%d_%d_%d", ip, Thread.currentThread().getId(), System.currentTimeMillis(), totalRequests.incrementAndGet());
 	}
-  	
+	
+ 
 }
