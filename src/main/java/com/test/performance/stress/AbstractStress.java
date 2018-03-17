@@ -12,13 +12,13 @@ import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public abstract class AbstractStress {
 	
-	private static final String REPORT_FORMAT = "[Report] send total requests [%s](succss requests: [%s]) with TPS [%s] comsume [%s]seconds";
+	private static final String REPORT_FORMAT = "[Report] send total requests [%s](fail requests: [%s]) with TPS [%s] comsume [%s]seconds";
  
  	protected long startTime = System.currentTimeMillis();
 	protected long expectedEndTimeInMillis;
 	protected long duration;
 	protected AtomicLong totalRequests = new AtomicLong();
-	protected AtomicLong successRequests = new AtomicLong();
+	protected AtomicLong failRequests = new AtomicLong();
 
 	protected String ip = PerformanceUtil.getLocalIp();
 	
@@ -32,7 +32,7 @@ public abstract class AbstractStress {
 		@Override
 		public void run() {
 			long duration = System.currentTimeMillis() - startTime;
-			System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), successRequests.get(), totalRequests.get() * 1000/duration, duration/1000));
+			System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), failRequests.get(), totalRequests.get() * 1000/duration, duration/1000));
 		}
 		
 	}
@@ -59,8 +59,8 @@ public abstract class AbstractStress {
 		try {
 			String trackingID = createTrackingID();
 			PerformanceResult result = abstractExecutor.execute(trackingID);
-			if(result.isSuccess()){
-				successRequests.incrementAndGet();
+			if(!result.isSuccess()){
+				failRequests.incrementAndGet();
 			}
 			resultCollector.record(result);
 		} catch (Exception e) {

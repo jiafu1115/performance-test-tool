@@ -2,8 +2,8 @@ package com.test.performance.testcase;
 
 public class TestCaseResult {
 	
-	private boolean isSuccess;
-	private String message;
+	private boolean isSuccess = true;
+	private String message = "";
 	/**
 	 * @return the isSuccess
 	 */
