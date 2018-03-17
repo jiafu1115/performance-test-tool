@@ -35,7 +35,7 @@ public class PerformanceTool {
 	@DynamicParameter(names = "-D", description = "dynamic parameters")
 	private Map<String, String> params = new HashMap<>();
 	
-	@Parameter(names = { "-runid" },  description = "run id for this test")
+	@Parameter(names = { "-runid" },  description = "run id for this test, default is date")
 	private String runid = new Date().toString();
 	
 	@Parameter(names = "-help", help = true)
