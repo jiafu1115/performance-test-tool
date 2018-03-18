@@ -49,6 +49,7 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 		
 		try{
 			this.influxDB.createDatabase(runInfo.getProgram());
+			this.influxDB.setDatabase(program);
 			return true;
 		}catch(Exception e){
 			return false;
