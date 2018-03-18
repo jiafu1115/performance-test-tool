@@ -3,13 +3,13 @@ package com.test.performance.common;
 public class RunInfo {
 	
 	private String program;
-	private String testItem;
+	private String testName;
 	private String runId;
 	
-	public RunInfo(String program, String testItem, String runId) {
+	public RunInfo(String program, String testName, String runId) {
 		super();
 		this.program = program;
-		this.testItem = testItem;
+		this.testName = testName;
 		this.runId = runId;
 	}
 
@@ -20,11 +20,9 @@ public class RunInfo {
 		return program;
 	}
 
-	/**
-	 * @return the testItem
-	 */
-	public String getTestItem() {
-		return testItem;
+ 
+	public String getTestName() {
+		return testName;
 	}
 
 	/**
@@ -44,8 +42,8 @@ public class RunInfo {
 	/**
 	 * @param testItem the testItem to set
 	 */
-	public void setTestItem(String testItem) {
-		this.testItem = testItem;
+	public void setTestName(String testName) {
+		this.testName = testName;
 	}
 
 	/**
@@ -63,8 +61,8 @@ public class RunInfo {
 		StringBuilder builder = new StringBuilder();
 		builder.append("RunInfo [program=");
 		builder.append(program);
-		builder.append("&testItem=");
-		builder.append(testItem);
+		builder.append("&testName=");
+		builder.append(testName);
 		builder.append("&runId=");
 		builder.append(runId);
 		builder.append("]");

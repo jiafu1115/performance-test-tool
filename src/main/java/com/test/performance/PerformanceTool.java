@@ -29,8 +29,8 @@ public class PerformanceTool {
 	@Parameter(names = { "-program" })
 	private String program;
 	
-	@Parameter(names = { "-testitem" })
-	private String testItem;
+	@Parameter(names = { "-testname" })
+	private String testName;
 	
 	@Parameter(names = { "-runid" },  description = "run id for this test, default is date")
 	private String runId = new Date().toString();
@@ -70,7 +70,7 @@ public class PerformanceTool {
   		
 		AbstractTestCaseExecutor testCaseExecutor = PerformanceUtil.getClassInstace(testCaseClass);
 		CollectMethod collectMethod = PerformanceUtil.getClassInstace(collectResultClass);
-		PerformanceResultCollector resultCollector = new PerformanceResultCollector(new RunInfo(program, testItem, runId), collectMethod);
+		PerformanceResultCollector resultCollector = new PerformanceResultCollector(new RunInfo(program, testName, runId), collectMethod);
  
 		boolean isPrepareSuccess = prepareCondition(testCaseExecutor, collectMethod);
 
@@ -94,7 +94,7 @@ public class PerformanceTool {
 
 	private boolean prepareCondition(AbstractTestCaseExecutor abstractExecutor, CollectMethod collectMethod) {
 		System.out.println("####prepare start####");
-		boolean isPrepareSuccess = abstractExecutor.prepareEnvironment() && collectMethod.prepareEnvironment(new RunInfo(program, testItem, runId));
+		boolean isPrepareSuccess = abstractExecutor.prepareEnvironment() && collectMethod.prepareEnvironment(new RunInfo(program, testName, runId));
 		System.out.println("####prepare complete####");
 		return isPrepareSuccess;
 	}
@@ -112,8 +112,8 @@ public class PerformanceTool {
 		StringBuilder builder = new StringBuilder();
 		builder.append("PerformanceTool Data\n[\nprogram=");
 		builder.append(program);
- 		builder.append("\ntestItem=");
-		builder.append(testItem);
+ 		builder.append("\ntestName=");
+		builder.append(testName);
  		builder.append("\nrunId=");
 		builder.append(runId);
  		builder.append("\ndurationInSeconds=");
