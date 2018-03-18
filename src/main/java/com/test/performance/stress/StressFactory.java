@@ -1,5 +1,6 @@
 package com.test.performance.stress;
 
+import com.test.performance.progress.ShowProgressable;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.testcase.AbstractTestCaseExecutor;
 
@@ -15,21 +16,21 @@ public class StressFactory {
 		return INSTACE;
 	}
 	
-	public AbstractStress getStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, String program, String runId, int durationInSeconds, int threadNumber, long tps) {
+	public AbstractStress getStress(AbstractTestCaseExecutor abstractTestCaseExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable, String program, String runId, int durationInSeconds, int threadNumber, long tps) {
 		int durationInMills = durationInSeconds * 1000;
 		if(tps != -1 && threadNumber == -1){
-			return new StressWithTpsControl(abstractExecutor, resultCollector, durationInMills, tps);
+			return new StressWithTpsControl(abstractTestCaseExecutor, resultCollector, showProgressable, durationInMills, tps);
 		}
 		
 		if(tps != -1 && threadNumber != -1){
-			return new StressWithTpsAndThreadNumberControl(abstractExecutor, resultCollector, durationInMills, threadNumber, tps);
+			return new StressWithTpsAndThreadNumberControl(abstractTestCaseExecutor, resultCollector, showProgressable, durationInMills, threadNumber, tps);
 		}
 		
 		if(tps == -1 && threadNumber != -1){
-			return new StressWithThreadNumberControl(abstractExecutor, resultCollector, durationInMills, threadNumber);
+			return new StressWithThreadNumberControl(abstractTestCaseExecutor, resultCollector, showProgressable, durationInMills, threadNumber);
 		}
 		
-		return new StressWithTpsAndThreadNumberControl(abstractExecutor, resultCollector, durationInMills, 1, 1);
+		return new StressWithTpsAndThreadNumberControl(abstractTestCaseExecutor, resultCollector, showProgressable, durationInMills, 1, 1);
 	}
 
 }

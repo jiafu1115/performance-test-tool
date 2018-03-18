@@ -1,57 +1,42 @@
 package com.test.performance.stress;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.test.performance.PerformanceUtil;
+import com.test.performance.progress.ShowProgressable;
 import com.test.performance.result.PerformanceResult;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public abstract class AbstractStress {
 	
-	private static final String REPORT_FORMAT = "[Report] send total requests [%s] (fail requests: [%s]) with TPS [%.1f] (average response time: [%s]mills) comsume [%s]seconds";
  
  	protected long startTime = System.currentTimeMillis();
 	protected long expectedEndTimeInMillis;
 	protected long duration;
+	
 	protected AtomicLong totalRequests = new AtomicLong();
-	protected AtomicLong failRequests = new AtomicLong();
-	protected AtomicLong totalRequestsComsumeTime = new AtomicLong();
- 
 	protected String ip = PerformanceUtil.getLocalIp();
 	
 	protected AbstractTestCaseExecutor abstractExecutor;
 	protected PerformanceResultCollector resultCollector;
-	
-	private ScheduledExecutorService scheduledExecutorService =  Executors.newScheduledThreadPool(1, r -> new Thread(r, "reportProgress"));
- 	
-	private  class ReportProgress implements Runnable{
-
-		@Override
-		public void run() {
-			long duration = System.currentTimeMillis() - startTime;
-			System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), failRequests.get(), totalRequests.get() * 1000d/duration, totalRequestsComsumeTime.get()/totalRequests.get(), duration/1000));
-		}
-		
-	}
+	protected ShowProgressable showProgressable;
+ 
   
 	public AbstractStress(AbstractTestCaseExecutor abstractExecutor,
-	PerformanceResultCollector resultCollector, long durationInMills) {
+	PerformanceResultCollector resultCollector, ShowProgressable showProgressable, long durationInMills) {
 		this.abstractExecutor = abstractExecutor;
 		this.resultCollector = resultCollector;
+		this.showProgressable = showProgressable;
 		this.duration = durationInMills;
 		this.expectedEndTimeInMillis = startTime + durationInMills;
 	}
 	
 	public void stressWithProgreeReport(){
-		ReportProgress reportProgress = new ReportProgress();
-		scheduledExecutorService.scheduleWithFixedDelay(reportProgress, 0, 5, TimeUnit.SECONDS);
+		this.showProgressable.start();
 		this.stress();
-		reportProgress.run();
-		scheduledExecutorService.shutdownNow();
+		this.showProgressable.stop();
 	}
 	
 	public abstract void stress();
@@ -60,10 +45,7 @@ public abstract class AbstractStress {
 		try {
 			String trackingID = createTrackingID();
 			PerformanceResult result = abstractExecutor.execute(trackingID);
-			totalRequestsComsumeTime.getAndAdd(result.getConsumeTimeInMillis());
-			if(!result.isSuccess()){
-				failRequests.incrementAndGet();
-			}
+			showProgressable.record(result.isSuccess(), result.getConsumeTimeInMillis());
 			resultCollector.record(result);
 		} catch (Exception e) {
 			e.printStackTrace();

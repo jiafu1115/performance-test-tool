@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.test.performance.progress.ShowProgressable;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.testcase.AbstractTestCaseExecutor;
 
@@ -16,8 +17,8 @@ public class StressWithTpsAndThreadNumberControl extends AbstractStress implemen
 	protected long threadNumber;
  
 	public StressWithTpsAndThreadNumberControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector,
-			long durationInMills, long threadNumber, long tps) {
-		super(abstractExecutor, resultCollector, durationInMills);
+			ShowProgressable	showProgressable, long durationInMills, long threadNumber, long tps) {
+		super(abstractExecutor, resultCollector, showProgressable, durationInMills);
 		this.threadNumber = threadNumber;
 
 		for (int i = 0; i < threadNumber; i++) {

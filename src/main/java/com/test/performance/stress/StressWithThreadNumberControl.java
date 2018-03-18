@@ -2,6 +2,7 @@ package com.test.performance.stress;
 
 import java.util.ArrayList;
 
+import com.test.performance.progress.ShowProgressable;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.testcase.AbstractTestCaseExecutor;
 
@@ -9,8 +10,8 @@ public class StressWithThreadNumberControl extends AbstractStress implements Run
 
 	protected long threadNumber;
 
-	public StressWithThreadNumberControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, long durationInMills, long threadNumber) {
-		super(abstractExecutor, resultCollector, durationInMills);
+	public StressWithThreadNumberControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable, long durationInMills, long threadNumber) {
+		super(abstractExecutor, resultCollector, showProgressable, durationInMills);
 		this.threadNumber = threadNumber;
 	}
 

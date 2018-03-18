@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 import com.beust.jcommander.DynamicParameter;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.test.performance.progress.ShowProgressImpl;
+import com.test.performance.progress.ShowProgressable;
 import com.test.performance.result.CollectMethod;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.stress.AbstractStress;
@@ -30,6 +32,9 @@ public class PerformanceTool {
 	
 	@Parameter(names = { "-duration"}, description = "keep how much time in second for test")
 	private int durationInSeconds = 10;
+	
+	@Parameter(names = { "-reportinterval"}, description = "interval in seconds to report progress")
+	private int reportProgressIntervalInSeconds = 5;
 
 	@Parameter(names = { "-thread" })
 	private int threadNumber = -1;
@@ -68,8 +73,9 @@ public class PerformanceTool {
 			System.out.println("prepare failed. won't execute stress");
 			return;
 		}
-
-		doStress(testCaseExecutor, resultCollector);
+		
+		ShowProgressImpl showProgressImpl = new ShowProgressImpl(reportProgressIntervalInSeconds);
+		doStress(testCaseExecutor, resultCollector, showProgressImpl);
 	}
 
 	private void printInfoAndPrepare() {
@@ -88,9 +94,9 @@ public class PerformanceTool {
 		return isPrepareSuccess;
 	}
 
-	private void doStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector) {
+	private void doStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable) {
 		System.out.println("####stress start####");
-		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, program, runId, durationInSeconds, threadNumber, tps);
+		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, showProgressable, program, runId, durationInSeconds, threadNumber, tps);
 		System.out.println("####" + stress + "####");
 		stress.stressWithProgreeReport();
 		System.out.println("####strees complete####");
@@ -111,6 +117,8 @@ public class PerformanceTool {
 		builder.append(tps);
  		builder.append("\nparams=");
 		builder.append(params);
+		builder.append("\nreportProgressIntervalInSeconds=");
+		builder.append(reportProgressIntervalInSeconds);
 		builder.append("\nntestCaseClass=");
 		builder.append(testCaseClass);
 		builder.append("\ncollectResultClass=");

@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.test.performance.progress.ShowProgressable;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.testcase.AbstractTestCaseExecutor;
 
@@ -12,9 +13,9 @@ public class StressWithTpsControl extends AbstractStress implements Runnable {
 	private ExecutorService executorService = Executors.newCachedThreadPool();
 	private long tps;
 
-	public StressWithTpsControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector,
-			 long durationInMills, long tps) {
-		super(abstractExecutor, resultCollector,  durationInMills);
+	public StressWithTpsControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable
+			, long durationInMills, long tps) {
+		super(abstractExecutor, resultCollector, showProgressable, durationInMills);
 		this.tps = tps;
 	}
 
