@@ -99,11 +99,7 @@ public class PerformanceTool {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("PerformanceTool Data\n[\ntestCaseClass=");
-		builder.append(testCaseClass);
-		builder.append("\ncollectResultClass=");
-		builder.append(collectResultClass);
- 		builder.append("\nprogram=");
+		builder.append("PerformanceTool Data\n[\nprogram=");
 		builder.append(program);
  		builder.append("\nrunId=");
 		builder.append(runId);
@@ -115,6 +111,10 @@ public class PerformanceTool {
 		builder.append(tps);
  		builder.append("\nparams=");
 		builder.append(params);
+		builder.append("\nntestCaseClass=");
+		builder.append(testCaseClass);
+		builder.append("\ncollectResultClass=");
+		builder.append(collectResultClass);
  		builder.append("\n]");
 		return builder.toString();
 	}
