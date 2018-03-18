@@ -6,11 +6,19 @@ import com.test.performance.result.PerformanceResult;
 
 public class DefaultCollectMethodImpl implements CollectMethod {
 
+	
+	@Override
+	public boolean prepareEnvironment(RunInfo runInfo) {
+		return true;
+ 	}
+	
 	@Override
 	public void collect(RunInfo runInfo, PerformanceResult result) {
 		if(!result.isSuccess()){
 			System.out.println("fail request: " + result);
 		}
 	}
+
+
 
 }

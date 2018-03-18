@@ -72,7 +72,7 @@ public class PerformanceTool {
 		CollectMethod collectMethod = PerformanceUtil.getClassInstace(collectResultClass);
 		PerformanceResultCollector resultCollector = new PerformanceResultCollector(new RunInfo(program, testItem, runId), collectMethod);
  
-		boolean isPrepareSuccess = prepareCondition(testCaseExecutor);
+		boolean isPrepareSuccess = prepareCondition(testCaseExecutor, collectMethod);
 
 		if (!isPrepareSuccess) {
 			System.out.println("prepare failed. won't execute stress");
@@ -92,9 +92,9 @@ public class PerformanceTool {
 		}
 	}
 
-	private boolean prepareCondition(AbstractTestCaseExecutor abstractExecutor) {
+	private boolean prepareCondition(AbstractTestCaseExecutor abstractExecutor, CollectMethod collectMethod) {
 		System.out.println("####prepare start####");
-		boolean isPrepareSuccess = abstractExecutor.prepareEnvironment();
+		boolean isPrepareSuccess = abstractExecutor.prepareEnvironment() && collectMethod.prepareEnvironment(new RunInfo(program, testItem, runId));
 		System.out.println("####prepare complete####");
 		return isPrepareSuccess;
 	}
