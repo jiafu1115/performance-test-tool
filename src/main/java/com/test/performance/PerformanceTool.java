@@ -103,6 +103,8 @@ public class PerformanceTool {
 		builder.append(testCaseClass);
 		builder.append("\ncollectResultClass=");
 		builder.append(collectResultClass);
+ 		builder.append("\nprogram=");
+		builder.append(program);
  		builder.append("\nrunId=");
 		builder.append(runId);
  		builder.append("\ndurationInSeconds=");
