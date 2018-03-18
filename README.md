@@ -6,8 +6,8 @@ Usage: performance test tool [options]
   Options:
     --record, -r
       record test result class, such as 
-      com.test.performance.result.DefaultCollectMethodImpl 
-      Default: com.test.performance.result.DefaultCollectMethodImpl
+      com.test.performance.result.impl.DefaultCollectMethodImpl
+      Default: com.test.performance.result.impl.DefaultCollectMethodImpl
   * --test, -t
       test case class, such as com.test.performance.demo.DemoTestCaseImpl
     -D

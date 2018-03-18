@@ -23,8 +23,8 @@ public class PerformanceTool {
 	@Parameter(required = true, names = { "--test", "-t" },  description = "test case class, such as com.test.performance.demo.DemoTestCaseImpl")
 	private String testCaseClass;
 
-	@Parameter(names = { "--record", "-r" },  description = "record test result class, such as com.test.performance.result.DefaultCollectMethodImpl")
-	private String collectResultClass = "com.test.performance.result.DefaultCollectMethodImpl";
+	@Parameter(names = { "--record", "-r" },  description = "record test result class, such as com.test.performance.result.impl.DefaultCollectMethodImpl")
+	private String collectResultClass = "com.test.performance.result.impl.DefaultCollectMethodImpl";
 	
 	@Parameter(names = { "-program" })
 	private String program;
