@@ -29,7 +29,7 @@ public class PerformanceTool {
 	@Parameter(names = { "-program" })
 	private String program;
 	
-	@Parameter(names = { "-testItem" })
+	@Parameter(names = { "-testitem" })
 	private String testItem;
 	
 	@Parameter(names = { "-runid" },  description = "run id for this test, default is date")
