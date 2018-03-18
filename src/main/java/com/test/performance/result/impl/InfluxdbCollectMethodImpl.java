@@ -2,7 +2,6 @@ package com.test.performance.result.impl;
 
 import java.util.concurrent.TimeUnit;
 
-import org.influxdb.BatchOptions;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Point;
@@ -19,7 +18,7 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 		String userName = System.getProperty("influxdbUsername");
 		String password = System.getProperty("influxdbPassword");
 		this.influxDB = InfluxDBFactory.connect(url, userName, password);
-		this.influxDB.enableBatch(BatchOptions.DEFAULTS);
+		this.influxDB.disableBatch();
 	}
 
 	@Override
