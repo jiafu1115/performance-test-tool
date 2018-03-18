@@ -22,6 +22,9 @@ public class PerformanceTool {
 	@Parameter(names = { "--record", "-r" },  description = "record test result class, such as com.test.performance.result.DefaultCollectMethodImpl")
 	private String collectResultClass = "com.test.performance.result.DefaultCollectMethodImpl";
 	
+	@Parameter(names = { "-program" })
+	private String program;
+	
 	@Parameter(names = { "-runid" },  description = "run id for this test, default is date")
 	private String runId = new Date().toString();
 	
@@ -55,18 +58,18 @@ public class PerformanceTool {
 	public void run() {
 		printInfoAndPrepare();
   		
-		AbstractTestCaseExecutor abstractExecutor = PerformanceUtil.getClassInstace(testCaseClass);
-		CollectMethod classInstace = PerformanceUtil.getClassInstace(collectResultClass);
-		PerformanceResultCollector resultCollector = new PerformanceResultCollector(classInstace);
+		AbstractTestCaseExecutor testCaseExecutor = PerformanceUtil.getClassInstace(testCaseClass);
+		CollectMethod collectMethod = PerformanceUtil.getClassInstace(collectResultClass);
+		PerformanceResultCollector resultCollector = new PerformanceResultCollector(this.program, this.runId, collectMethod);
  
-		boolean isPrepareSuccess = prepareCondition(abstractExecutor);
+		boolean isPrepareSuccess = prepareCondition(testCaseExecutor);
 
 		if (!isPrepareSuccess) {
 			System.out.println("prepare failed. won't execute stress");
 			return;
 		}
 
-		doStress(abstractExecutor, resultCollector);
+		doStress(testCaseExecutor, resultCollector);
 	}
 
 	private void printInfoAndPrepare() {
@@ -87,7 +90,7 @@ public class PerformanceTool {
 
 	private void doStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector) {
 		System.out.println("####stress start####");
-		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, runId, durationInSeconds, threadNumber, tps);
+		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, program, runId, durationInSeconds, threadNumber, tps);
 		System.out.println("####" + stress + "####");
 		stress.stressWithProgreeReport();
 		System.out.println("####strees complete####");

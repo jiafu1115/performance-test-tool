@@ -2,6 +2,6 @@ package com.test.performance.result;
 
 public interface CollectMethod {
 	
-	void collect(PerformanceResult result);
+	void collect(String program, String runId, PerformanceResult result);
 
 }

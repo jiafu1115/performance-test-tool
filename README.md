@@ -18,6 +18,7 @@ Usage: performance test tool [options]
       keep how much time in second for test
       Default: 10
     -help
+    -program
 
     -runid
       run id for this test, default is date
@@ -25,6 +26,7 @@ Usage: performance test tool [options]
     -thread
 
       Default: -1
+
     -tps
 
       Default: -1

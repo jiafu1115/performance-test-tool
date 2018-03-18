@@ -15,21 +15,21 @@ public class StressFactory {
 		return INSTACE;
 	}
 	
-	public AbstractStress getStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, String runId, int durationInSeconds, int threadNumber, long tps) {
+	public AbstractStress getStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, String program, String runId, int durationInSeconds, int threadNumber, long tps) {
 		int durationInMills = durationInSeconds * 1000;
 		if(tps != -1 && threadNumber == -1){
-			return new StressWithTpsControl(abstractExecutor, resultCollector, runId, durationInMills, tps);
+			return new StressWithTpsControl(abstractExecutor, resultCollector, durationInMills, tps);
 		}
 		
 		if(tps != -1 && threadNumber != -1){
-			return new StressWithTpsAndThreadNumberControl(abstractExecutor, resultCollector, runId, durationInMills, threadNumber, tps);
+			return new StressWithTpsAndThreadNumberControl(abstractExecutor, resultCollector, durationInMills, threadNumber, tps);
 		}
 		
 		if(tps == -1 && threadNumber != -1){
-			return new StressWithThreadNumberControl(abstractExecutor, resultCollector, runId, durationInMills, threadNumber);
+			return new StressWithThreadNumberControl(abstractExecutor, resultCollector, durationInMills, threadNumber);
 		}
 		
-		return new StressWithTpsAndThreadNumberControl(abstractExecutor, resultCollector, runId, durationInMills, 1, 1);
+		return new StressWithTpsAndThreadNumberControl(abstractExecutor, resultCollector, durationInMills, 1, 1);
 	}
 
 }

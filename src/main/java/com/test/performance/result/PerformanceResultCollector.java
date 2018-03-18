@@ -12,10 +12,13 @@ public class PerformanceResultCollector {
             new SynchronousQueue<Runnable>(),
             r -> new Thread(r, "recordResult"));
 	
+	private String program;
+	private String runId;
 	private CollectMethod collectResultable;
-	
    
-	public PerformanceResultCollector(CollectMethod collectResultable) {
+	public PerformanceResultCollector(String program, String runId, CollectMethod collectResultable) {
+		this.program = program;
+		this.runId = runId;
 		this.collectResultable = collectResultable;
 	}
  
@@ -25,7 +28,7 @@ public class PerformanceResultCollector {
 			@Override
 			public void run() {
 				try{
-					collectResultable.collect(resultRecord);
+					collectResultable.collect(program, runId, resultRecord);
 				}catch(Exception e){
 					e.printStackTrace();
 				}

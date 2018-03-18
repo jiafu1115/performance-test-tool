@@ -6,6 +6,6 @@ public interface TestCaseExecutor {
 	
 	public boolean prepareEnvironment();
 
-	public PerformanceResult execute(String runId, String trackingId);
+	public PerformanceResult execute(String trackingId);
 
 }
