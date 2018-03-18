@@ -29,7 +29,7 @@ public class ShowProgressImpl implements ShowProgressable {
 		public void run() {
 			synchronized (ShowProgressImpl.class) {
 				long duration = System.currentTimeMillis() - startTime;
-				System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), failRequests.get(), totalRequests.get() * 1000d/duration, totalRequestsComsumeTime.get()/totalRequests.get(), duration/1000));
+				System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), failRequests.get(), totalRequests.get() * 1000d/duration, 0, duration/1000));
 			}
 			}
 	}
