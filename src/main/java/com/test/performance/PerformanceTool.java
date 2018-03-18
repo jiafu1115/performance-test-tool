@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import com.beust.jcommander.DynamicParameter;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.test.performance.common.RunInfo;
 import com.test.performance.progress.ShowProgressImpl;
 import com.test.performance.progress.ShowProgressable;
 import com.test.performance.result.CollectMethod;
@@ -26,6 +27,9 @@ public class PerformanceTool {
 	
 	@Parameter(names = { "-program" })
 	private String program;
+	
+	@Parameter(names = { "-testItem" })
+	private String testItem;
 	
 	@Parameter(names = { "-runid" },  description = "run id for this test, default is date")
 	private String runId = new Date().toString();
@@ -65,7 +69,7 @@ public class PerformanceTool {
   		
 		AbstractTestCaseExecutor testCaseExecutor = PerformanceUtil.getClassInstace(testCaseClass);
 		CollectMethod collectMethod = PerformanceUtil.getClassInstace(collectResultClass);
-		PerformanceResultCollector resultCollector = new PerformanceResultCollector(this.program, this.runId, collectMethod);
+		PerformanceResultCollector resultCollector = new PerformanceResultCollector(new RunInfo(program, testItem, runId), collectMethod);
  
 		boolean isPrepareSuccess = prepareCondition(testCaseExecutor);
 
@@ -96,7 +100,7 @@ public class PerformanceTool {
 
 	private void doStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable) {
 		System.out.println("####stress start####");
-		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, showProgressable, program, runId, durationInSeconds, threadNumber, tps);
+		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, showProgressable, durationInSeconds, threadNumber, tps);
 		System.out.println("####" + stress + "####");
 		stress.stressWithProgreeReport();
 		System.out.println("####strees complete####");
@@ -107,6 +111,8 @@ public class PerformanceTool {
 		StringBuilder builder = new StringBuilder();
 		builder.append("PerformanceTool Data\n[\nprogram=");
 		builder.append(program);
+ 		builder.append("\ntestItem=");
+		builder.append(testItem);
  		builder.append("\nrunId=");
 		builder.append(runId);
  		builder.append("\ndurationInSeconds=");

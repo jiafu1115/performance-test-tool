@@ -5,6 +5,8 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import com.test.performance.common.RunInfo;
+
 public class PerformanceResultCollector {
 	
 	protected ExecutorService threadPool =  new ThreadPoolExecutor(0, Integer.MAX_VALUE,
@@ -12,13 +14,11 @@ public class PerformanceResultCollector {
             new SynchronousQueue<Runnable>(),
             r -> new Thread(r, "recordResult"));
 	
-	private String program;
-	private String runId;
+	private RunInfo runInfo;
 	private CollectMethod collectResultable;
    
-	public PerformanceResultCollector(String program, String runId, CollectMethod collectResultable) {
-		this.program = program;
-		this.runId = runId;
+	public PerformanceResultCollector(RunInfo runInfo, CollectMethod collectResultable) {
+		this.runInfo = runInfo;		
 		this.collectResultable = collectResultable;
 	}
  
@@ -28,7 +28,7 @@ public class PerformanceResultCollector {
 			@Override
 			public void run() {
 				try{
-					collectResultable.collect(program, runId, resultRecord);
+					collectResultable.collect(runInfo, resultRecord);
 				}catch(Exception e){
 					e.printStackTrace();
 				}
