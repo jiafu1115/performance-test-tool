@@ -42,18 +42,20 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 	@Override
 	public boolean prepareEnvironment(RunInfo runInfo) {
 		String program = runInfo.getProgram();
-		if(this.influxDB.databaseExists(program)){
-			return true;
-		}
-		
 		try{
-			this.influxDB.createDatabase(runInfo.getProgram());
+			if(this.influxDB.databaseExists(program)){
+				return true;
+			}
+			
+			try{
+				this.influxDB.createDatabase(runInfo.getProgram());
+				return true;
+			}catch(Exception e){
+				return false;
+			}
+		}finally{
 			this.influxDB.setDatabase(program);
-			return true;
-		}catch(Exception e){
-			return false;
 		}
-		
  	}
 
 }
