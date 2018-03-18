@@ -1,4 +1,4 @@
-package com.test.performance;
+package com.test.performance.common;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

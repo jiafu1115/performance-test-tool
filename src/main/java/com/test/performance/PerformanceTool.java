@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import com.beust.jcommander.DynamicParameter;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.test.performance.common.PerformanceUtil;
 import com.test.performance.common.RunInfo;
 import com.test.performance.progress.ShowProgressImpl;
 import com.test.performance.progress.ShowProgressable;

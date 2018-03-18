@@ -1,4 +1,4 @@
-package com.test.performance;
+package com.test.performance.common;
 
 public class PerformanceToolException extends RuntimeException {
 

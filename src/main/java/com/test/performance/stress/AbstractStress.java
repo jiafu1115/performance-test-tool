@@ -3,7 +3,7 @@ package com.test.performance.stress;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.test.performance.PerformanceUtil;
+import com.test.performance.common.PerformanceUtil;
 import com.test.performance.progress.ShowProgressable;
 import com.test.performance.result.PerformanceResult;
 import com.test.performance.result.PerformanceResultCollector;
