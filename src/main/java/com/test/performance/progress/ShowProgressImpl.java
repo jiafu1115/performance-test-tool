@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class ShowProgressImpl implements ShowProgressable {
 	
-	private static final String REPORT_FORMAT = "[Report] send total requests [%s] (fail requests: [%s]) with TPS [%.1f] (average response time in report interval: [%.1f]mills) comsume [%s]seconds";
+	private static final String REPORT_FORMAT = "[Report] send total [%s] requests(fail [%s] requests) with [%.1f]TPS  (average response time [%.1f]mills in report interval) comsume [%s]seconds";
 
 	private ScheduledExecutorService scheduledExecutorService;
 	private int reportProgressIntervalInSeconds;
