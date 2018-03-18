@@ -13,7 +13,7 @@ public class DemoTestCaseImpl extends AbstractTestCaseExecutor {
 	protected TestCaseResult run(String trackingId) {
 		//System.out.println("         run test case with trackingId:" + trackingId);
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
  		}
