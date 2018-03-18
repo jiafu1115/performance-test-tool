@@ -1,3 +1,7 @@
+# performance-test-tool
+common performance test tool
+
+```
 Usage: performance test tool [options]
   Options:
     --record, -r
@@ -29,4 +33,34 @@ Usage: performance test tool [options]
     -tps
 
       Default: -1
+```
+
+### Usage: help
+```
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-help"
+```
+
+## Usage: test with 1 thread and 1 TPS
+
+```
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20"
+```
+
+## Usage: no limit TPS, just use N thread to loop execute
+
+```
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -thread 5"
+```
+
+## Usage: try to reach limit TPS by unlimited thread
+```
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -tps 30"
+
+
+## Usage: try to reach limit TPS by N thread
+```
+compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -thread 5 -tps 30"
+```
+
+
 

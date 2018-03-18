@@ -119,7 +119,7 @@ public class PerformanceTool {
 		builder.append(params);
 		builder.append("\nreportProgressIntervalInSeconds=");
 		builder.append(reportProgressIntervalInSeconds);
-		builder.append("\nntestCaseClass=");
+		builder.append("\ntestCaseClass=");
 		builder.append(testCaseClass);
 		builder.append("\ncollectResultClass=");
 		builder.append(collectResultClass);
