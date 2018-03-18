@@ -4,18 +4,32 @@ public class PerformanceResult {
 	
 	private long startTime;
 	private String trackingId;
-	private long consumeTime;
+	private long consumeTimeInMillis;
 	private boolean isSuccess;
 	private String message;
   	
 	public PerformanceResult(String trackingId, boolean isSuccess, String message, long startTime, long consumeTime) {
 		this.startTime = startTime;
 		this.trackingId = trackingId;
-		this.consumeTime = consumeTime;
+		this.consumeTimeInMillis = consumeTime;
 		this.isSuccess = isSuccess;
 		this.message = 	message;
 	}
  
+	/**
+	 * @return the consumeTimeInMillis
+	 */
+	public long getConsumeTimeInMillis() {
+		return consumeTimeInMillis;
+	}
+
+	/**
+	 * @param consumeTimeInMillis the consumeTimeInMillis to set
+	 */
+	public void setConsumeTimeInMillis(long consumeTimeInMillis) {
+		this.consumeTimeInMillis = consumeTimeInMillis;
+	}
+
 	/**
 	 * @return the trackingId
 	 */
@@ -23,12 +37,7 @@ public class PerformanceResult {
 		return trackingId;
 	}
  
-	/**
-	 * @return the consumeTime
-	 */
-	public long getConsumeTime() {
-		return consumeTime;
-	}
+ 
 	/**
 	 * @param trackingId the trackingId to set
 	 */
@@ -36,12 +45,7 @@ public class PerformanceResult {
 		this.trackingId = trackingId;
 	}
 	 
-	/**
-	 * @param consumeTime the consumeTime to set
-	 */
-	public void setConsumeTime(long consumeTime) {
-		this.consumeTime = consumeTime;
-	}
+ 
 	/**
 	 * @return the startTime
 	 */
@@ -91,12 +95,10 @@ public class PerformanceResult {
 		builder.append(message);
 		builder.append("&startTime=");
 		builder.append(startTime);
-		builder.append("&consumeTime=");
-		builder.append(consumeTime);
+		builder.append("&consumeTimeInMillis=");
+		builder.append(consumeTimeInMillis);
 		builder.append("]");
 		return builder.toString();
 	}
- 
-	
- 
+  
 }
