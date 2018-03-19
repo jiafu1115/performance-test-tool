@@ -12,12 +12,17 @@ import com.test.performance.result.PerformanceResult;
 public class InfluxdbCollectMethodImpl implements CollectMethod {
 	
 	private InfluxDB influxDB;
+	private String database;
 	
 	public InfluxdbCollectMethodImpl() {
+		this.database = System.getProperty("influxdbDatabase");
+
 		String url = System.getProperty("influxdbUrl");
 		String userName = System.getProperty("influxdbUsername");
 		String password = System.getProperty("influxdbPassword");
+		
 		this.influxDB = InfluxDBFactory.connect(url, userName, password);
+		this.influxDB.setDatabase(database);
 		this.influxDB.disableBatch();
 	}
 
@@ -29,6 +34,7 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 		
 		Point point = Point.measurement(runInfo.getTestName()).
 							time(result.getStartTime(), TimeUnit.MILLISECONDS).
+							tag("program", runInfo.getProgram()).
 							tag("runId", runInfo.getRunId()).
 							addField("trackingId", result.getTrackingId()).
 							addField("isSuccess", result.isSuccess()).
@@ -41,21 +47,17 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean prepareEnvironment(RunInfo runInfo) {
-		String program = runInfo.getProgram();
-		try{
-			if(this.influxDB.databaseExists(program)){
-				return true;
-			}
-			
-			try{
-				this.influxDB.createDatabase(runInfo.getProgram());
-				return true;
-			}catch(Exception e){
-				return false;
-			}
-		}finally{
-			this.influxDB.setDatabase(program);
+		if(this.influxDB.databaseExists(this.database)){
+			return true;
 		}
+		
+		try{
+			this.influxDB.createDatabase(this.database);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+
  	}
 
 }

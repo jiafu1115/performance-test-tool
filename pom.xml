@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.test.performance</groupId>
 	<artifactId>performance-test-tool</artifactId>
-	<version>1.0.6</version>
+	<version>1.0.8</version>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/com.beust/jcommander -->
 		<dependency>
