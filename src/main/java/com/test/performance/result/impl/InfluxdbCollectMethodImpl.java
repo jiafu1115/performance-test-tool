@@ -32,9 +32,9 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 			System.out.println("fail request: " + result);
 		}
 		
-		Point point = Point.measurement(runInfo.getTestName()).
+		Point point = Point.measurement(runInfo.getProgram()).
 							time(result.getStartTime(), TimeUnit.MILLISECONDS).
-							tag("program", runInfo.getProgram()).
+							tag("testname", runInfo.getTestName()).
 							tag("runId", runInfo.getRunId()).
 							addField("trackingId", result.getTrackingId()).
 							addField("isSuccess", result.isSuccess()).
