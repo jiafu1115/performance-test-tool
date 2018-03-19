@@ -68,7 +68,7 @@ compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec
 compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -thread 5 -tps 30"
 ```
 
-# example:
+# Example in practice:
 ```
  compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-program MyProgramName -testname TestWebService -runid ThisRunId -t com.test.mytestcaseimpl -r com.test.performance.result.impl.InfluxdbCollectMethodImpl  -duration 60 -tps 80 -Ddsaip=10.224.2.100 -DinfluxdbUrl=http://10.224.2.101:8086 -DinfluxdbDatabase=MetricDatabaseName -DinfluxdbUsername=admin -DinfluxdbPassword=admin "
  ```
