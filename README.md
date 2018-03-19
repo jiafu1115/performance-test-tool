@@ -4,35 +4,41 @@ common performance test tool
 ```
 Usage: performance test tool [options]
   Options:
-    --record, -r
-      record test result class, such as 
-      com.test.performance.result.impl.DefaultCollectMethodImpl
-      Default: com.test.performance.result.impl.DefaultCollectMethodImpl
+
   * --test, -t
       test case class, such as com.test.performance.demo.DemoTestCaseImpl
-    -D
-      dynamic parameters
-      Syntax: -Dkey=value
-      Default: {}
+
+    -program
+    
+    -testname
+    
+    -runid
+      run id for this test, default is date
+
+    -thread
+      
     -duration
       keep how much time in second for test
       Default: 10
-    -help
-
-    -program
+      
+    -tps
 
     -reportinterval
       interval in seconds to report progress
       Default: 5
-    -runid
-      run id for this test, default is date
-      Default: Sun Mar 18 18:59:13 CST 2018
-    -thread
 
-      Default: -1
-    -tps
+    --record, -r
+      record test result class, such as 
+      com.test.performance.result.impl.DefaultCollectMethodImpl 
+      Default: com.test.performance.result.impl.DefaultCollectMethodImpl
+      
+    -D
+      dynamic parameters
+      Syntax: -Dkey=value
+      Default: {}
+      
+    -help
 
-      Default: -1
 ```
 
 ### Usage: help
@@ -55,7 +61,7 @@ compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec
 ## Usage: try to reach limit TPS by unlimited thread
 ```
 compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -tps 30"
-
+```
 
 ## Usage: try to reach limit TPS by N thread
 ```
