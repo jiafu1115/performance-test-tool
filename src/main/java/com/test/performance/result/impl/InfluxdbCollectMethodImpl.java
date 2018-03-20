@@ -37,7 +37,7 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 							tag("testname", runInfo.getTestName()).
 							tag("runId", runInfo.getRunId()).
 							tag("runIp", runInfo.getRunIp()).
-							tag("trackingId", result.getTrackingId()).
+							addField("trackingId", result.getTrackingId()).
 							addField("isSuccess", result.isSuccess()).
 						    addField("duration", result.getDuration()).
 							addField("message", result.getMessage()).
