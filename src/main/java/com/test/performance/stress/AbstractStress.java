@@ -45,7 +45,7 @@ public abstract class AbstractStress {
 		try {
 			String trackingID = createTrackingID();
 			PerformanceResult result = abstractExecutor.execute(trackingID);
-			showProgressable.record(result.isSuccess(), result.getConsumeTimeInMillis());
+			showProgressable.record(result.isSuccess(), result.getDuration());
 			resultCollector.record(result);
 		} catch (Exception e) {
 			e.printStackTrace();

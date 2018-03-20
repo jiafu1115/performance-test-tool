@@ -56,7 +56,7 @@ public class ShowProgressImpl implements ShowProgressable {
 		synchronized (ShowProgressImpl.class) {
 			totalRequests.incrementAndGet();
 			totalRequestsInReportInterval.incrementAndGet();
-			totalRequestsComsumeTimeInReportInterval.getAndAdd(duration);
+			totalRequestsComsumeTimeInReportInterval.getAndAdd(duration/1000);
 			if(!isSuccess){
 				failRequests.incrementAndGet();
 			}

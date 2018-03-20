@@ -4,31 +4,32 @@ public class PerformanceResult {
 	
 	private long startTime;
 	private String trackingId;
-	private long consumeTimeInMillis;
+	private long duration;
 	private boolean isSuccess;
 	private String message;
   	
-	public PerformanceResult(String trackingId, boolean isSuccess, String message, long startTime, long consumeTime) {
+	public PerformanceResult(String trackingId, boolean isSuccess, String message, long startTime, long duration) {
 		this.startTime = startTime;
 		this.trackingId = trackingId;
-		this.consumeTimeInMillis = consumeTime;
+		this.duration = duration;
 		this.isSuccess = isSuccess;
 		this.message = 	message;
 	}
+  
+	/**
+	 * @return the duration
+	 */
+	public long getDuration() {
+		return duration;
+	}
  
 	/**
-	 * @return the consumeTimeInMillis
+	 * @param duration the duration to set
 	 */
-	public long getConsumeTimeInMillis() {
-		return consumeTimeInMillis;
+	public void setDuration(long duration) {
+		this.duration = duration;
 	}
 
-	/**
-	 * @param consumeTimeInMillis the consumeTimeInMillis to set
-	 */
-	public void setConsumeTimeInMillis(long consumeTimeInMillis) {
-		this.consumeTimeInMillis = consumeTimeInMillis;
-	}
 
 	/**
 	 * @return the trackingId
@@ -95,8 +96,8 @@ public class PerformanceResult {
 		builder.append(message);
 		builder.append("&startTime=");
 		builder.append(startTime);
-		builder.append("&consumeTimeInMillis=");
-		builder.append(consumeTimeInMillis);
+		builder.append("&duration=");
+		builder.append(duration);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -33,12 +33,13 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 		}
 		
 		Point point = Point.measurement(runInfo.getProgram()).
-							time(result.getStartTime(), TimeUnit.MILLISECONDS).
+							time(result.getStartTime(), TimeUnit.NANOSECONDS).
 							tag("testname", runInfo.getTestName()).
 							tag("runId", runInfo.getRunId()).
-							addField("trackingId", result.getTrackingId()).
+							tag("runIp", runInfo.getRunIp()).
+							tag("trackingId", result.getTrackingId()).
 							addField("isSuccess", result.isSuccess()).
-						    addField("duration", result.getConsumeTimeInMillis()).
+						    addField("duration", result.getDuration()).
 							addField("message", result.getMessage()).
 							build();
 		influxDB.write(point);
