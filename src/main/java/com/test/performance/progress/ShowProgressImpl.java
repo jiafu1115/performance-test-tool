@@ -67,7 +67,7 @@ public class ShowProgressImpl implements ShowProgressable {
 	@Override
 	public void start(){
 		ReportProgress reportProgress = new ReportProgress();
-		scheduledExecutorService.scheduleWithFixedDelay(reportProgress, 0, reportProgressIntervalInSeconds, TimeUnit.SECONDS);
+		scheduledExecutorService.scheduleWithFixedDelay(reportProgress, reportProgressIntervalInSeconds, reportProgressIntervalInSeconds, TimeUnit.SECONDS);
 	}
 	
 	@Override
