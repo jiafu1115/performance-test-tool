@@ -33,7 +33,7 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 		}
 		
 		Point point = Point.measurement(runInfo.getProgram()).
-							time(result.getStartTime()/1000/1000, TimeUnit.MILLISECONDS).
+							time(result.getStartTime(), TimeUnit.MILLISECONDS).
 							tag("testname", runInfo.getTestName()).
 							tag("runId", runInfo.getRunId()).
 							tag("runIp", runInfo.getRunIp()).
