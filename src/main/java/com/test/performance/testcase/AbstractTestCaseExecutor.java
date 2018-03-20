@@ -7,7 +7,7 @@ public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
    
 	@Override
 	public PerformanceResult execute(String trackingId) {
-		long startTime = System.nanoTime();
+		long startTime = System.currentTimeMillis();
 		
 		TestCaseResult result = new TestCaseResult();
 		try{
@@ -18,18 +18,17 @@ public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
 			result.setMessage(e.getMessage());
 		}
 		
-		long endTime = System.nanoTime();
+		long endTime = System.currentTimeMillis();
  		long comsumeTime = endTime - startTime;
  		return new PerformanceResult(trackingId, result.isSuccess(), result.getMessage(), startTime, comsumeTime);
   	}
 	
 	protected abstract TestCaseResult run(String trackingId);
 	
+	@Override
 	public boolean prepareEnvironment(){
 		return true;
 	}
 
-
-	
-
+	 
 }

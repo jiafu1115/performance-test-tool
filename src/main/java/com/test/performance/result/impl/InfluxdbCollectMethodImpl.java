@@ -39,7 +39,7 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 							tag("runIp", runInfo.getRunIp()).
 							addField("trackingId", result.getTrackingId()).
 							addField("isSuccess", result.isSuccess()).
-						    addField("duration", result.getDuration()/1000/1000).
+						    addField("duration", result.getDuration()).
 							addField("message", result.getMessage()).
 							build();
 		influxDB.write(point);
