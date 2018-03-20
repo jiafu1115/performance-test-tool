@@ -1,5 +1,6 @@
 package com.test.performance.result.impl;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.influxdb.InfluxDB;
@@ -10,6 +11,8 @@ import com.test.performance.result.CollectMethod;
 import com.test.performance.result.PerformanceResult;
 
 public class InfluxdbCollectMethodImpl implements CollectMethod {
+	
+	private static final Random RANDOM = new Random();
 	
 	private InfluxDB influxDB;
 	private String database;
@@ -37,6 +40,7 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 							tag("testName", runInfo.getTestName()).
 							tag("runId", runInfo.getRunId()).
 							tag("runIp", runInfo.getRunIp()).
+							tag("seq", String.valueOf(RANDOM.nextInt(1000))).
 							addField("trackingId", result.getTrackingId()).
 							addField("isSuccess", result.isSuccess()).
 						    addField("duration", result.getDuration()).
