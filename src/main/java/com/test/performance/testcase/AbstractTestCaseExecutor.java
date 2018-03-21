@@ -39,5 +39,5 @@ public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
 	public void afterTest(){
 	   // no implement
 	}
-	 
+
 }
