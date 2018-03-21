@@ -35,27 +35,38 @@ public abstract class AbstractStress {
 	}
 	
 	public void stressWithProgreeReport(){
+		System.out.println("[Test] start");
+
 		if(!prepareEnv()){
-			System.out.println("### fail to prepare test ###");
+			System.out.println("[ERROR] fail to prepare test");
 			return;
 		}
 		
 		startReport();
+		
+		System.out.println("[Stress] start");
 		stress();
+		System.out.println("[Stress] complete");
+
 		endReport();
  		destoryEnv();
+ 		
+		System.out.println("[Test] complete");
+
 	}
 
 	private boolean prepareEnv() {
-		return resultCollector.prepare() && testCase.prepareEnvironment();
+		return resultCollector.prepare() && testCase.prepare();
 	}
 
 	private void destoryEnv() {
 		try{
-			testCase.destoryEnvironment();
+			testCase.destroy();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		System.out.println("[Environment] destory complete");
 	}
 
 	private void startReport() {

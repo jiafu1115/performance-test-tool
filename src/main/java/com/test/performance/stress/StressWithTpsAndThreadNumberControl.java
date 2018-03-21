@@ -27,8 +27,8 @@ public class StressWithTpsAndThreadNumberControl extends AbstractStress implemen
 		
 		double tpsForSingleThread = Double.parseDouble(String.valueOf(tps)) / this.threadNumber;
 		rate =  1000d * 1000 / tpsForSingleThread ;
-		System.out.println(String.format("########tps to execute for every thead: [%.1f] ########", tpsForSingleThread));
-		System.out.println(String.format("########rate to execute for every thead: [%.1f] Micros ########", rate));
+		System.out.println(String.format("[Info] tps to execute for single thead: [%.1f]", tpsForSingleThread));
+		System.out.println(String.format("[Info] rate to execute for single thead: [%.1f] Micros", rate));
 	}
 
 	@Override

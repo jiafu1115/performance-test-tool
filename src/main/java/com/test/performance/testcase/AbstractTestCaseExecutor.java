@@ -25,22 +25,32 @@ public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
 	
 	protected abstract TestCaseResult run(String trackingId);
 	
-	@Override
-	public boolean prepareEnvironment(){
+ 	public boolean prepare(){
+		System.out.println("[Prepare][Test Case] start");
+ 		boolean result = prepareEnvironment();
+		System.out.println("[Prepare][Test Case] complete with result: " + result);
+		
+		return result;
+ 	}
+ 	
+ 	public void destroy(){
+		System.out.println("[Cleanup][Test Case] start");
+ 		destoryEnvironment();
+		System.out.println("[Cleanup][Test Case] complete with result");
+  	}
+	
+	protected boolean prepareEnvironment(){
 		return true;
 	}
 	
-	@Override
-	public void destoryEnvironment(){
+	protected void destoryEnvironment(){
 		// no implement
 	}
 
-	@Override
 	public void beforeTest(){
 		// no implement
 	}
 	
-	@Override
 	public void afterTest(){
 	   // no implement
 	}

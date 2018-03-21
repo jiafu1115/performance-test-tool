@@ -76,8 +76,9 @@ public class PerfTool {
 	}
 
 	private void printInfoAndPrepare() {
-		System.out.println("####performance tool data####");
+		System.out.println("####################################################################################");
 		System.out.println(this);
+		System.out.println("####################################################################################");
  
 		for (Entry<String, String> entry : this.params.entrySet()) {
 			System.setProperty(entry.getKey(), entry.getValue());
@@ -85,11 +86,9 @@ public class PerfTool {
 	}
  
 	private void doStress(Class<AbstractTestCaseExecutor> abstractExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable) {
-		System.out.println("####stress start####");
 		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, showProgressable, new StressInfo(durationInSeconds, threadNumber, tps));
-		System.out.println("####" + stress + "####");
+		System.out.println("[Info] stress method: " + stress);
 		stress.stressWithProgreeReport();
-		System.out.println("####strees complete####");
 	}
 
 	@Override

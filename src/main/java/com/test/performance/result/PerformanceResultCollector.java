@@ -20,9 +20,9 @@ public class PerformanceResultCollector {
    
  
 	public boolean prepare() {
-		System.out.println("####prepare result collector start####");
+		System.out.println("[Prepare][Result Collector] start");
 		boolean isPrepareSuccess = collectResultable.prepareEnvironment(runInfo);
-		System.out.println("####prepare result collector complete####");
+		System.out.println("[Prepare][Result Collector] complete");
 		return isPrepareSuccess;
 	}
 	
