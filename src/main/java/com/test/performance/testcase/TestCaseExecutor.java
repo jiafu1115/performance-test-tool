@@ -12,4 +12,6 @@ public interface TestCaseExecutor {
 	
 	public void afterTest();
 
+	public void destoryEnvironment();
+
 }

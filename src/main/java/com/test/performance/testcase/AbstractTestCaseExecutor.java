@@ -29,6 +29,10 @@ public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
 	public boolean prepareEnvironment(){
 		return true;
 	}
+	
+	@Override
+	public void destoryEnvironment(){
+	}
 
 	@Override
 	public void beforeTest(){

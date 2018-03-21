@@ -35,8 +35,23 @@ public abstract class AbstractStress {
 	}
 	
 	public void stressWithProgreeReport(){
+		AbstractTestCaseExecutor testCase = PerformanceUtil.getClassInstace(this.abstractExecutorClazz);
+		boolean isSuccess = testCase.prepareEnvironment();
+		if(!isSuccess){
+			System.err.println("fail to prepare environment");
+			return;
+		}
+		
 		this.showProgressable.start();
-		this.stress();
+		try{
+			this.stress();
+		}finally{
+			try{
+				testCase.destoryEnvironment();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 		this.showProgressable.stop();
 	}
 	
