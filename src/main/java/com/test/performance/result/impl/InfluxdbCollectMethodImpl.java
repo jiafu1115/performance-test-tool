@@ -1,6 +1,5 @@
 package com.test.performance.result.impl;
 
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.influxdb.InfluxDB;
@@ -9,10 +8,9 @@ import org.influxdb.dto.Point;
 import com.test.performance.common.RunInfo;
 import com.test.performance.result.CollectMethod;
 import com.test.performance.result.PerformanceResult;
+import com.test.performance.stress.ExecuteInfo;
 
 public class InfluxdbCollectMethodImpl implements CollectMethod {
-	
-	private static final Random RANDOM = new Random();
 	
 	private InfluxDB influxDB;
 	private String database;
@@ -30,7 +28,7 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 	}
 
 	@Override
-	public void collect(RunInfo runInfo, PerformanceResult result) {
+	public void collect(RunInfo runInfo, ExecuteInfo executeInfo , PerformanceResult result) {
 		if(!result.isSuccess()){
 			System.out.println("fail request: " + result);
 		}
@@ -40,7 +38,7 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 							tag("testName", runInfo.getTestName()).
 							tag("runId", runInfo.getRunId()).
 							tag("runIp", runInfo.getRunIp()).
-							tag("seq", String.valueOf(RANDOM.nextInt(1000))).
+							tag("threadId", String.valueOf(executeInfo.getThreadId())).
 							addField("trackingId", result.getTrackingId()).
 							addField("isSuccess", result.isSuccess()).
 						    addField("duration", result.getDuration()).

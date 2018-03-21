@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.test.performance.common.RunInfo;
+import com.test.performance.stress.ExecuteInfo;
 
 public class PerformanceResultCollector {
 	
@@ -22,13 +23,13 @@ public class PerformanceResultCollector {
 		this.collectResultable = collectResultable;
 	}
  
-	public void record(PerformanceResult resultRecord) {
+	public void record(ExecuteInfo executeInfo, PerformanceResult resultRecord) {
 		threadPool.submit(new Runnable() {
 			
 			@Override
 			public void run() {
 				try{
-					collectResultable.collect(runInfo, resultRecord);
+					collectResultable.collect(runInfo, executeInfo, resultRecord);
 				}catch(Exception e){
 					e.printStackTrace();
 				}
