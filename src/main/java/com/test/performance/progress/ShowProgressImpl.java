@@ -73,5 +73,7 @@ public class ShowProgressImpl implements ShowProgressable {
 	@Override
 	public void stop(){
 		scheduledExecutorService.shutdownNow();
+		ReportProgress reportProgress = new ReportProgress();
+		reportProgress.run();
 	}
 }
