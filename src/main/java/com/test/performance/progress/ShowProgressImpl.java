@@ -12,13 +12,13 @@ public class ShowProgressImpl implements ShowProgressable {
 
 	private ScheduledExecutorService scheduledExecutorService;
 	private int reportProgressIntervalInSeconds;
- 	protected long startTime = System.currentTimeMillis();
+ 	private long startTime = System.currentTimeMillis();
 
-	protected AtomicLong totalRequests = new AtomicLong();
-	protected AtomicLong failRequests = new AtomicLong();
+ 	private AtomicLong totalRequests = new AtomicLong();
+ 	private AtomicLong failRequests = new AtomicLong();
 	
-	protected AtomicLong totalRequestsInReportInterval = new AtomicLong();
-	protected AtomicLong totalRequestsComsumeTimeInReportInterval = new AtomicLong();
+ 	private AtomicLong totalRequestsInReportInterval = new AtomicLong();
+ 	private AtomicLong totalRequestsComsumeTimeInReportInterval = new AtomicLong();
  	
 	public ShowProgressImpl(int reportProgressIntervalInSeconds) {
 		this.reportProgressIntervalInSeconds = reportProgressIntervalInSeconds;
