@@ -12,7 +12,6 @@ import com.test.performance.testcase.AbstractTestCaseExecutor;
 
 public abstract class AbstractStress {
 	
- 
  	protected long startTime = System.currentTimeMillis();
 	protected long expectedEndTimeInMillis;
 	protected long duration;
@@ -23,11 +22,12 @@ public abstract class AbstractStress {
 	protected Class<AbstractTestCaseExecutor> abstractExecutorClazz;
 	protected PerformanceResultCollector resultCollector;
 	protected ShowProgressable showProgressable;
- 
+	private AbstractTestCaseExecutor testCase;
   
 	public AbstractStress(Class<AbstractTestCaseExecutor> abstractExecutor,
 	PerformanceResultCollector resultCollector, ShowProgressable showProgressable, long durationInMills) {
 		this.abstractExecutorClazz = abstractExecutor;
+		this.testCase = PerformanceUtil.getClassInstace(this.abstractExecutorClazz);
 		this.resultCollector = resultCollector;
 		this.showProgressable = showProgressable;
 		this.duration = durationInMills;
@@ -35,35 +35,45 @@ public abstract class AbstractStress {
 	}
 	
 	public void stressWithProgreeReport(){
-		AbstractTestCaseExecutor testCase = PerformanceUtil.getClassInstace(this.abstractExecutorClazz);
-		boolean isSuccess = testCase.prepareEnvironment();
-		if(!isSuccess){
-			System.err.println("fail to prepare environment");
+		if(!prepareEnv()){
+			System.out.println("### fail to prepare test ###");
 			return;
 		}
 		
-		this.showProgressable.start();
+		startReport();
+		this.stress();
+		endReport();
+ 		destoryEnv();
+	}
+
+	private boolean prepareEnv() {
+		return resultCollector.prepare() && testCase.prepareEnvironment();
+	}
+
+	private void destoryEnv() {
 		try{
-			this.stress();
-		}finally{
-			try{
-				testCase.destoryEnvironment();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			testCase.destoryEnvironment();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		this.showProgressable.stop();
+	}
+
+	private void startReport() {
+		this.showProgressable.start();
 	}
 	
-	public abstract void stress();
+	private void endReport() {
+		this.showProgressable.stop();
+	}
+ 
+ 	protected abstract void stress();
 	
 	protected void executeTestCase() {
-		String trackingID = createTrackingID();
 		AbstractTestCaseExecutor testCase = PerformanceUtil.getClassInstace(this.abstractExecutorClazz);
 	
 		try {
 		    testCase.beforeTest();
-			PerformanceResult result = testCase.execute(trackingID);
+			PerformanceResult result = testCase.execute(createTrackingID());
 			showProgressable.record(result.isSuccess(), result.getDuration());
 			resultCollector.record(getExecuteInfo(), result);
 		} catch (Exception e) {

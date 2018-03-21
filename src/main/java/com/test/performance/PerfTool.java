@@ -12,13 +12,12 @@ import com.test.performance.common.PerformanceUtil;
 import com.test.performance.common.RunInfo;
 import com.test.performance.progress.ShowProgressImpl;
 import com.test.performance.progress.ShowProgressable;
-import com.test.performance.result.CollectMethod;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.stress.AbstractStress;
 import com.test.performance.stress.StressFactory;
 import com.test.performance.testcase.AbstractTestCaseExecutor;
 
-public class PerformanceTool {
+public class PerfTool {
 
 	@Parameter(required = true, names = { "--test", "-t" },  description = "test case class, such as com.test.performance.demo.DemoTestCaseImpl")
 	private String testCaseClass;
@@ -54,7 +53,7 @@ public class PerformanceTool {
     private boolean help = false;
 
 	public static void main(String... argv) throws Exception {
-		PerformanceTool performancePool = new PerformanceTool();
+		PerfTool performancePool = new PerfTool();
 		JCommander build = JCommander.newBuilder().addObject(performancePool).build();
 		build.setProgramName("performance test tool");
 		build.parse(argv);
@@ -69,18 +68,9 @@ public class PerformanceTool {
 		printInfoAndPrepare();
   		
 		Class<AbstractTestCaseExecutor> testCaseExecutor = PerformanceUtil.getClass(testCaseClass);
-		CollectMethod collectMethod = PerformanceUtil.getClassInstace(collectResultClass);
-		RunInfo runInfo = new RunInfo(program, testName, runId);
-		PerformanceResultCollector resultCollector = new PerformanceResultCollector(runInfo, collectMethod);
- 
-		boolean isPrepareSuccess = prepareCondition(collectMethod, runInfo);
-
-		if (!isPrepareSuccess) {
-			System.out.println("prepare failed. won't execute stress");
-			return;
-		}
+		PerformanceResultCollector resultCollector = new PerformanceResultCollector(new RunInfo(program, testName, runId), PerformanceUtil.getClassInstace(collectResultClass));
+		ShowProgressable showProgressImpl = new ShowProgressImpl(reportProgressIntervalInSeconds);
 		
-		ShowProgressImpl showProgressImpl = new ShowProgressImpl(reportProgressIntervalInSeconds);
 		doStress(testCaseExecutor, resultCollector, showProgressImpl);
 	}
 
@@ -92,14 +82,7 @@ public class PerformanceTool {
 			System.setProperty(entry.getKey(), entry.getValue());
 		}
 	}
-
-	private boolean prepareCondition(CollectMethod collectMethod, RunInfo runInfo) {
-		System.out.println("####prepare start####");
-		boolean isPrepareSuccess = collectMethod.prepareEnvironment(runInfo);
-		System.out.println("####prepare complete####");
-		return isPrepareSuccess;
-	}
-
+ 
 	private void doStress(Class<AbstractTestCaseExecutor> abstractExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable) {
 		System.out.println("####stress start####");
 		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, showProgressable, durationInSeconds, threadNumber, tps);
