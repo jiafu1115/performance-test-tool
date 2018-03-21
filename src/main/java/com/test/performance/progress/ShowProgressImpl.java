@@ -8,30 +8,26 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class ShowProgressImpl implements ShowProgressable {
 	
-	private static final String REPORT_FORMAT = "[Report] send total [%s] requests(fail [%s] requests) with [%.1f]TPS  (average response time [%.1f]mills in report interval) comsume [%s]seconds";
+	private static final String REPORT_FORMAT = "[Report] send total [%s] requests(fail [%s] requests) with [%.1f]TPS  (average response time [%.1f]mills in last [%d]s) comsume [%s]seconds";
 
 	private ScheduledExecutorService scheduledExecutorService;
-	private int reportProgressIntervalInSeconds;
+	
  	private long startTime = System.currentTimeMillis();
-
+	private int reportProgressIntervalInSeconds;
+ 
  	private AtomicLong totalRequests = new AtomicLong();
  	private AtomicLong failRequests = new AtomicLong();
 	
  	private AtomicLong totalRequestsInReportInterval = new AtomicLong();
  	private AtomicLong totalRequestsComsumeTimeInReportInterval = new AtomicLong();
  	
-	public ShowProgressImpl(int reportProgressIntervalInSeconds) {
-		this.reportProgressIntervalInSeconds = reportProgressIntervalInSeconds;
-		this.scheduledExecutorService =  Executors.newScheduledThreadPool(1, r -> new Thread(r, "reportProgress"));
-	}
-
 	private class ReportProgress implements Runnable{
 
 		@Override
 		public void run() {
 			synchronized (ShowProgressImpl.class) {
 				long duration = System.currentTimeMillis() - startTime;
-				System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), failRequests.get(), totalRequests.get() * 1000d/duration, getAverageResponseTimeInReportInterval(), duration/1000));
+				System.out.println(String.format(REPORT_FORMAT, totalRequests.get(), failRequests.get(), totalRequests.get() * 1000d/duration, getAverageResponseTimeInReportInterval(), reportProgressIntervalInSeconds, duration/1000));
 				resetIntervalData();
 			}
 		}
@@ -50,7 +46,12 @@ public class ShowProgressImpl implements ShowProgressable {
 			
 		}
 	}
-	
+ 	
+	public ShowProgressImpl(int reportProgressIntervalInSeconds) {
+		this.reportProgressIntervalInSeconds = reportProgressIntervalInSeconds;
+		this.scheduledExecutorService =  Executors.newScheduledThreadPool(1, r -> new Thread(r, "reportProgress"));
+	}
+ 
 	@Override
 	public void record(boolean isSuccess, long duration){
 		synchronized (ShowProgressImpl.class) {
