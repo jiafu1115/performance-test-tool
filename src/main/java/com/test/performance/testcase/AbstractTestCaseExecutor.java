@@ -36,7 +36,7 @@ public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
  	public void destroy(){
 		System.out.println("[Cleanup][Test Case] start");
  		destoryEnvironment();
-		System.out.println("[Cleanup][Test Case] complete with result");
+		System.out.println("[Cleanup][Test Case] complete");
   	}
 	
 	protected boolean prepareEnvironment(){
