@@ -5,8 +5,8 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import com.test.performance.common.ExecuteInfo;
 import com.test.performance.common.RunInfo;
-import com.test.performance.stress.ExecuteInfo;
 
 public class PerformanceResultCollector {
 	

@@ -1,7 +1,7 @@
 package com.test.performance.result;
 
+import com.test.performance.common.ExecuteInfo;
 import com.test.performance.common.RunInfo;
-import com.test.performance.stress.ExecuteInfo;
 
 public interface CollectMethod {
 	

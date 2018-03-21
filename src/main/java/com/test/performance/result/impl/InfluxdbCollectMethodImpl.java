@@ -5,10 +5,11 @@ import java.util.concurrent.TimeUnit;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Point;
+
+import com.test.performance.common.ExecuteInfo;
 import com.test.performance.common.RunInfo;
 import com.test.performance.result.CollectMethod;
 import com.test.performance.result.PerformanceResult;
-import com.test.performance.stress.ExecuteInfo;
 
 public class InfluxdbCollectMethodImpl implements CollectMethod {
 	

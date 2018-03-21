@@ -1,4 +1,4 @@
-package com.test.performance.stress;
+package com.test.performance.common;
 
 public class ExecuteInfo {
 	
