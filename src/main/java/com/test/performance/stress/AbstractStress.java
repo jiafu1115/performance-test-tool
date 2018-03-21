@@ -41,7 +41,7 @@ public abstract class AbstractStress {
 		}
 		
 		startReport();
-		this.stress();
+		stress();
 		endReport();
  		destoryEnv();
 	}

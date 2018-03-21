@@ -10,6 +10,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.test.performance.common.PerformanceUtil;
 import com.test.performance.common.RunInfo;
+import com.test.performance.common.StressInfo;
 import com.test.performance.progress.ShowProgressImpl;
 import com.test.performance.progress.ShowProgressable;
 import com.test.performance.result.PerformanceResultCollector;
@@ -85,7 +86,7 @@ public class PerfTool {
  
 	private void doStress(Class<AbstractTestCaseExecutor> abstractExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable) {
 		System.out.println("####stress start####");
-		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, showProgressable, durationInSeconds, threadNumber, tps);
+		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, showProgressable, new StressInfo(durationInSeconds, threadNumber, tps));
 		System.out.println("####" + stress + "####");
 		stress.stressWithProgreeReport();
 		System.out.println("####strees complete####");

@@ -43,34 +43,34 @@ Usage: performance test tool [options]
 
 ## Usage: help
 ```
-compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-help"
+compile exec:java -Dexec.mainClass="com.test.performance.PerfTool" -Dexec.args="-help"
 ```
 
 ## Usage: test with 1 thread and 1 TPS
 
 ```
-compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20"
+compile exec:java -Dexec.mainClass="com.test.performance.PerfTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20"
 ```
 
 ## Usage: no limit TPS, just use N thread to loop execute
 
 ```
-compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -thread 5"
+compile exec:java -Dexec.mainClass="com.test.performance.PerfTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -thread 5"
 ```
 
 ## Usage: try to reach limit TPS by unlimited thread
 ```
-compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -tps 30"
+compile exec:java -Dexec.mainClass="com.test.performance.PerfTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -tps 30"
 ```
 
 ## Usage: try to reach limit TPS by N thread
 ```
-compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -thread 5 -tps 30"
+compile exec:java -Dexec.mainClass="com.test.performance.PerfTool" -Dexec.args="-t com.test.performance.demo.DemoTestCaseImpl -duration 20 -thread 5 -tps 30"
 ```
 
 # Example in practice:
 ```
- compile exec:java -Dexec.mainClass="com.test.performance.PerformanceTool" -Dexec.args="-program MyProgramName -testname TestWebService -runid ThisRunId -t com.test.mytestcaseimpl -r com.test.performance.result.impl.InfluxdbCollectMethodImpl  -duration 60 -tps 80 -Ddsaip=10.224.2.100 -DinfluxdbUrl=http://10.224.2.101:8086 -DinfluxdbDatabase=MetricDatabaseName -DinfluxdbUsername=admin -DinfluxdbPassword=admin "
+ compile exec:java -Dexec.mainClass="com.test.performance.PerfTool" -Dexec.args="-program MyProgramName -testname TestWebService -runid ThisRunId -t com.test.mytestcaseimpl -r com.test.performance.result.impl.InfluxdbCollectMethodImpl  -duration 60 -tps 80 -Ddsaip=10.224.2.100 -DinfluxdbUrl=http://10.224.2.101:8086 -DinfluxdbDatabase=MetricDatabaseName -DinfluxdbUsername=admin -DinfluxdbPassword=admin "
  ```
 
 

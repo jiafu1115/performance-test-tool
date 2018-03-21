@@ -32,6 +32,7 @@ public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
 	
 	@Override
 	public void destoryEnvironment(){
+		// no implement
 	}
 
 	@Override

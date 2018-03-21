@@ -31,7 +31,7 @@ public class InfluxdbCollectMethodImpl implements CollectMethod {
 	@Override
 	public void collect(RunInfo runInfo, ExecuteInfo executeInfo , PerformanceResult result) {
 		if(!result.isSuccess()){
-			System.out.println("fail request: " + result);
+			System.err.println("fail request: " + result);
 		}
 		
 		Point point = Point.measurement(runInfo.getProgram()).

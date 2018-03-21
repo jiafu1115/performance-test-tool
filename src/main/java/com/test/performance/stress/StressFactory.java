@@ -1,5 +1,6 @@
 package com.test.performance.stress;
 
+import com.test.performance.common.StressInfo;
 import com.test.performance.progress.ShowProgressable;
 import com.test.performance.result.PerformanceResultCollector;
 import com.test.performance.testcase.AbstractTestCaseExecutor;
@@ -16,8 +17,11 @@ public class StressFactory {
 		return INSTACE;
 	}
 	
-	public AbstractStress getStress(Class<AbstractTestCaseExecutor> abstractTestCaseExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable, int durationInSeconds, int threadNumber, long tps) {
-		int durationInMills = durationInSeconds * 1000;
+	public AbstractStress getStress(Class<AbstractTestCaseExecutor> abstractTestCaseExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable, StressInfo stressInfo) {
+		int durationInMills = stressInfo.getDurationInSeconds() * 1000;
+		int threadNumber = stressInfo.getThreadNumber();
+		int tps = stressInfo.getTps();
+		
 		if(tps != -1 && threadNumber == -1){
 			return new StressWithTpsControl(abstractTestCaseExecutor, resultCollector, showProgressable, durationInMills, tps);
 		}
