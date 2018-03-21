@@ -18,7 +18,7 @@ public abstract class AbstractStress {
 	protected long duration;
 	
 	protected AtomicLong totalRequests = new AtomicLong();
-	protected String ip = PerformanceUtil.getLocalIp();
+	protected String runIp = PerformanceUtil.getLocalIp();
 	
 	protected AbstractTestCaseExecutor abstractExecutor;
 	protected PerformanceResultCollector resultCollector;
@@ -47,7 +47,7 @@ public abstract class AbstractStress {
 			String trackingID = createTrackingID();
 			PerformanceResult result = abstractExecutor.execute(trackingID);
 			long threadId = Thread.currentThread().getId();
-			ExecuteInfo executeInfo = new ExecuteInfo(threadId);
+			ExecuteInfo executeInfo = new ExecuteInfo(runIp, threadId);
 			showProgressable.record(result.isSuccess(), result.getDuration());
 			resultCollector.record(executeInfo, result);
 		} catch (Exception e) {
@@ -56,7 +56,7 @@ public abstract class AbstractStress {
 	}
 
 	private String createTrackingID() {
-		return String.format("%s_%d_%d_%d", ip, Thread.currentThread().getId(), System.currentTimeMillis(), totalRequests.incrementAndGet());
+		return String.format("%s_%d_%d_%d", runIp, Thread.currentThread().getId(), System.currentTimeMillis(), totalRequests.incrementAndGet());
 	}
 	
  

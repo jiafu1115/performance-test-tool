@@ -70,7 +70,7 @@ public class PerformanceTool {
   		
 		AbstractTestCaseExecutor testCaseExecutor = PerformanceUtil.getClassInstace(testCaseClass);
 		CollectMethod collectMethod = PerformanceUtil.getClassInstace(collectResultClass);
-		RunInfo runInfo = new RunInfo(program, testName, runId, PerformanceUtil.getLocalIp());
+		RunInfo runInfo = new RunInfo(program, testName, runId);
 		PerformanceResultCollector resultCollector = new PerformanceResultCollector(runInfo, collectMethod);
  
 		boolean isPrepareSuccess = prepareCondition(testCaseExecutor, collectMethod, runInfo);

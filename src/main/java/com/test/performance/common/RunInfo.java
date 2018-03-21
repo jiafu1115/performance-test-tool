@@ -5,13 +5,11 @@ public class RunInfo {
 	private String program;
 	private String testName;
 	private String runId;
-	private String runIp;
 
-	public RunInfo(String program, String testName, String runId, String runIp) {
+	public RunInfo(String program, String testName, String runId) {
 		this.program = program;
 		this.testName = testName;
 		this.runId = runId;
-		this.runIp = runIp;
 	}
  
 	/**
@@ -53,21 +51,6 @@ public class RunInfo {
 	public void setRunId(String runId) {
 		this.runId = runId;
 	}
-	
-	
-	/**
-	 * @return the runIp
-	 */
-	public String getRunIp() {
-		return runIp;
-	}
-
-	/**
-	 * @param runIp the runIp to set
-	 */
-	public void setRunIp(String runIp) {
-		this.runIp = runIp;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -81,12 +64,8 @@ public class RunInfo {
 		builder.append(testName);
 		builder.append("&runId=");
 		builder.append(runId);
-		builder.append("&runIp=");
-		builder.append(runIp);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 
 }
