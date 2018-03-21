@@ -19,10 +19,23 @@ public class PerformanceUtil {
     }
     
 	@SuppressWarnings("unchecked")
-	public static <T> T getClassInstace(String clazz) {
+	public static <T> T getClass(String classStr) {
 		try {
-			return (T) Class.forName(clazz).newInstance();
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			return (T) Class.forName(classStr);
+		} catch (ClassNotFoundException e) {
+ 			throw new PerformanceToolException(e.getMessage(), e);
+		}
+	}
+    
+	public static <T> T getClassInstace(String classStr) {
+			Class<T> clazz = getClass(classStr);
+			return getClassInstace(clazz);
+	}
+	
+	public static <T> T getClassInstace(Class<T> classStr) {
+		try {
+			return classStr.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
  			throw new PerformanceToolException(e.getMessage(), e);
 		}
 	}

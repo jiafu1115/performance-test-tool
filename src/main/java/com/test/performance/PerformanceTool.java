@@ -68,7 +68,7 @@ public class PerformanceTool {
 	public void run() {
 		printInfoAndPrepare();
   		
-		AbstractTestCaseExecutor testCaseExecutor = PerformanceUtil.getClassInstace(testCaseClass);
+		Class<AbstractTestCaseExecutor> testCaseExecutor = PerformanceUtil.getClass(testCaseClass);
 		CollectMethod collectMethod = PerformanceUtil.getClassInstace(collectResultClass);
 		RunInfo runInfo = new RunInfo(program, testName, runId);
 		PerformanceResultCollector resultCollector = new PerformanceResultCollector(runInfo, collectMethod);
@@ -93,14 +93,15 @@ public class PerformanceTool {
 		}
 	}
 
-	private boolean prepareCondition(AbstractTestCaseExecutor abstractExecutor, CollectMethod collectMethod, RunInfo runInfo) {
+	private boolean prepareCondition(Class<AbstractTestCaseExecutor> testCaseExecutor, CollectMethod collectMethod, RunInfo runInfo) {
 		System.out.println("####prepare start####");
-		boolean isPrepareSuccess = abstractExecutor.prepareEnvironment() && collectMethod.prepareEnvironment(runInfo);
+		AbstractTestCaseExecutor testCase = PerformanceUtil.getClassInstace(testCaseExecutor);
+		boolean isPrepareSuccess = testCase.prepareEnvironment() && collectMethod.prepareEnvironment(runInfo);
 		System.out.println("####prepare complete####");
 		return isPrepareSuccess;
 	}
 
-	private void doStress(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable) {
+	private void doStress(Class<AbstractTestCaseExecutor> abstractExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable) {
 		System.out.println("####stress start####");
 		AbstractStress stress = StressFactory.getInstance().getStress(abstractExecutor, resultCollector, showProgressable, durationInSeconds, threadNumber, tps);
 		System.out.println("####" + stress + "####");

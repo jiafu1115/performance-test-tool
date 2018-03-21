@@ -16,7 +16,7 @@ public class StressWithTpsAndThreadNumberControl extends AbstractStress implemen
 	private double rate;
 	protected long threadNumber;
  
-	public StressWithTpsAndThreadNumberControl(AbstractTestCaseExecutor abstractExecutor, PerformanceResultCollector resultCollector,
+	public StressWithTpsAndThreadNumberControl(Class<AbstractTestCaseExecutor> abstractExecutor, PerformanceResultCollector resultCollector,
 			ShowProgressable	showProgressable, long durationInMills, long threadNumber, long tps) {
 		super(abstractExecutor, resultCollector, showProgressable, durationInMills);
 		this.threadNumber = threadNumber;

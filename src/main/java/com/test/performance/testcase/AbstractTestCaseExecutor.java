@@ -30,5 +30,14 @@ public abstract class AbstractTestCaseExecutor implements TestCaseExecutor{
 		return true;
 	}
 
+	@Override
+	public void beforeTest(){
+		// no implement
+	}
+	
+	@Override
+	public void afterTest(){
+	   // no implement
+	}
 	 
 }

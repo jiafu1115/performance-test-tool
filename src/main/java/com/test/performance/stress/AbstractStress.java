@@ -20,14 +20,14 @@ public abstract class AbstractStress {
 	protected AtomicLong totalRequests = new AtomicLong();
 	protected String runIp = PerformanceUtil.getLocalIp();
 	
-	protected AbstractTestCaseExecutor abstractExecutor;
+	protected Class<AbstractTestCaseExecutor> abstractExecutorClazz;
 	protected PerformanceResultCollector resultCollector;
 	protected ShowProgressable showProgressable;
  
   
-	public AbstractStress(AbstractTestCaseExecutor abstractExecutor,
+	public AbstractStress(Class<AbstractTestCaseExecutor> abstractExecutor,
 	PerformanceResultCollector resultCollector, ShowProgressable showProgressable, long durationInMills) {
-		this.abstractExecutor = abstractExecutor;
+		this.abstractExecutorClazz = abstractExecutor;
 		this.resultCollector = resultCollector;
 		this.showProgressable = showProgressable;
 		this.duration = durationInMills;
@@ -43,16 +43,29 @@ public abstract class AbstractStress {
 	public abstract void stress();
 	
 	protected void executeTestCase() {
+		String trackingID = createTrackingID();
+		AbstractTestCaseExecutor testCase = PerformanceUtil.getClassInstace(this.abstractExecutorClazz);
+	
 		try {
-			String trackingID = createTrackingID();
-			PerformanceResult result = abstractExecutor.execute(trackingID);
-			long threadId = Thread.currentThread().getId();
-			ExecuteInfo executeInfo = new ExecuteInfo(runIp, threadId);
+		    testCase.beforeTest();
+			PerformanceResult result = testCase.execute(trackingID);
 			showProgressable.record(result.isSuccess(), result.getDuration());
-			resultCollector.record(executeInfo, result);
+			resultCollector.record(getExecuteInfo(), result);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			try{
+				testCase.afterTest();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
+	}
+
+	private ExecuteInfo getExecuteInfo() {
+		long threadId = Thread.currentThread().getId();
+		ExecuteInfo executeInfo = new ExecuteInfo(runIp, threadId);
+		return executeInfo;
 	}
 
 	private String createTrackingID() {

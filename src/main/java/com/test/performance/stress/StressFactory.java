@@ -16,7 +16,7 @@ public class StressFactory {
 		return INSTACE;
 	}
 	
-	public AbstractStress getStress(AbstractTestCaseExecutor abstractTestCaseExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable, int durationInSeconds, int threadNumber, long tps) {
+	public AbstractStress getStress(Class<AbstractTestCaseExecutor> abstractTestCaseExecutor, PerformanceResultCollector resultCollector, ShowProgressable showProgressable, int durationInSeconds, int threadNumber, long tps) {
 		int durationInMills = durationInSeconds * 1000;
 		if(tps != -1 && threadNumber == -1){
 			return new StressWithTpsControl(abstractTestCaseExecutor, resultCollector, showProgressable, durationInMills, tps);

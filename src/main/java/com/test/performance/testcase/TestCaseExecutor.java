@@ -7,5 +7,9 @@ public interface TestCaseExecutor {
 	public boolean prepareEnvironment();
 
 	public PerformanceResult execute(String trackingId);
+	
+	public void beforeTest();
+	
+	public void afterTest();
 
 }
